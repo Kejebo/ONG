@@ -1,0 +1,61 @@
+label {
+    font-size: 14px;
+    font-weight: bold;
+}
+table{
+    vertical-align: middle !important;
+}
+thead {
+    text-align: center;
+}
+tbody tr:hover{
+    background-color: #f5f5f5 !important;
+}
+#zero_config td{
+    vertical-align: center !important;
+}
+tbody {
+    text-align: center;
+}
+
+#jovenes .modal-body {
+    height: 400px !important;
+    overflow: auto;
+}
+
+.eventos {
+    height: 140px !important;
+    overflow: auto;
+}
+
+.galeria {
+    height: 395px !important;
+    overflow: auto;
+    border: 1px dotted black !important;
+}
+
+.galeria img:hover {
+    opacity: 0.9;
+}
+#login{
+    background-image: url('../images/login.jpeg') !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+#login .card{
+    margin-top: 25%;
+  
+}
+#login .card-header{
+    background-color: #ed7e29;
+    color: white;
+    text-align: center;
+    font-family: cursive;
+    font-size: 18px;
+}
+.cuadro{
+    opacity: 0.9;
+}
+
