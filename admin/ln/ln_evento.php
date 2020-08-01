@@ -15,7 +15,7 @@ class ln_evento
             switch ($_GET['action']) {
                 case 'insert':
                     $this->db->insert_evento($_POST);
-                   // header("Location: inscripciones.php?id=" . $this->db->get_id());
+                    header("Location: inscripciones.php?id=" . $this->db->get_id());
                     break;
                 case 'update':
                     $this->db->update_evento($_POST);
