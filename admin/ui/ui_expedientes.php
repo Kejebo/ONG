@@ -10,7 +10,7 @@ class ui_expedientes extends gui
     function __construct()
     {
         $this->ln = new ln_joven();
-        $this->sedes= new ln_sedes();
+        $this->sedes = new ln_sedes();
     }
 
     function get_build()
@@ -141,49 +141,32 @@ class ui_expedientes extends gui
 
                                                     </div>
                                                 </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-5">
+                                                        <label>Cant. Miembros</label>
+                                                    </div>
+
+                                                    <div class="col-sm-7">
+                                                        <input class="form-control" type="number" name="miembros" value="<?= $ui['cant_miembros'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Rec. Ayuda Social</label>
+                                                    </div>
+                                                    <?php for ($i = 1; $i > -1; $i--) { ?>
+                                                        <div class="form-check form-check-inline col-sm-1">
+                                                            <?php if ($ui['ayuda_social'] == 1) { ?>
+                                                                <input class="form-check-input" checked type="radio" name="ayuda" value="<?= $i ?>">
+                                                            <?php } else { ?>
+                                                                <input class="form-check-input" checked type="radio" name="ayuda" value="<?= $i ?>">
+                                                            <?php } ?>
+                                                            <label class="form-check-label"><?= $i > 0 ? 'Si' : 'No' ?></label>
+                                                        </div>
+                                                    <?php } ?>
+                                                </div>
                                                 <br>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4 p-3">
-                                        <div class="card shadow">
-                                            <div class="card-body">
-                                                <h5>Detalle de Registro</h5>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-4 col-12">
-                                                        <label class="control-label col-form-label">Fecha de registro.</label>
-                                                    </div>
-                                                    <div class="col-sm-8 col-12">
-                                                        <input type="date" name="fecha_reg" class="form-control" value="<?= $ui['fecha_registro'] ?>">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-4 col-12">
-                                                        <label class="control-label col-form-label">Generacion</label>
-                                                    </div>
-                                                    <div class="col-sm-8 col-12">
-                                                        <input type="text" name="generacion" class="form-control" value="<?= $ui['generacion'] ?>">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-4 col-12">
-                                                        <label class="control-label col-form-label">Centro de Formacion</label>
-                                                    </div>
-                                                    <div class="col-sm-8 col-12">
-                                                        <select id="my-select" class="form-control" name="centro_form">
-                                                        <?php foreach ($this->sedes->db->get_sedes() as $sedes) { 
-                                                                if($ui['sede']==$sedes['id_sede']){
-                                                            ?>
-                                                                <option selected value="<?= $sedes['id_sede'] ?>"><?= $sedes['nombre_sede'] ?></option>
-                                                            <?php }else{ ?>
-                                                                <option value="<?= $sedes['id_sede'] ?>"><?= $sedes['nombre_sede'] ?></option>
-
-                                                           <?php }} ?>
-                                                        </select>
-
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
 
@@ -226,6 +209,88 @@ class ui_expedientes extends gui
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-sm-4 p-3">
+                                        <div class="card shadow">
+                                            <div class="card-header">
+                                                <h4>Ocupacion</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <input type="hidden" id='datos' value='<?= json_encode($this->ln->db->get_ocupacion($_GET['id'])) ?>'>
+                                                <div class="row">
+                                                    <div class="form-check col-12 col-md-3">
+                                                        <input class="form-check-input ocupacion" type="checkbox" name="ocupacion[]" value="Estudia">
+                                                        <label class="form-check-label">Estudia</label>
+                                                    </div>
+                                                    <div class="form-group col-12 col-md-9">
+                                                        <input type="text" id="estudia" name="estudia" style="width: 100%;" placeholder="Donde">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-check col-12 col-md-3">
+                                                        <input class="form-check-input ocupacion" type="checkbox" name="ocupacion[]" value="Trabaja">
+                                                        <label class="form-check-label">Trabaja</label>
+                                                    </div>
+                                                    <div class="form-group col-12 col-md-9">
+                                                        <input type="text" id="trabaja" name="trabaja" style="width: 100%;" placeholder="Donde...">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-check col-12">
+                                                        <input class="form-check-input ocupacion" type="checkbox" name="ocupacion[]" value="No estudia">
+                                                        <label class="form-check-label">No Estudia</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-check col-12">
+                                                        <input class="form-check-input ocupacion" type="checkbox" name="ocupacion[]" value="No Trabaja">
+                                                        <label class="form-check-label">No trabaja</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card shadow">
+                                            <div class="card-body">
+                                                <h5>Detalle de Registro</h5>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4 col-12">
+                                                        <label class="control-label col-form-label">Fecha de registro.</label>
+                                                    </div>
+                                                    <div class="col-sm-8 col-12">
+                                                        <input type="date" name="fecha_reg" class="form-control" value="<?= $ui['fecha_registro'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4 col-12">
+                                                        <label class="control-label col-form-label">Generacion</label>
+                                                    </div>
+                                                    <div class="col-sm-8 col-12">
+                                                        <input type="text" name="generacion" class="form-control" value="<?= $ui['generacion'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4 col-12">
+                                                        <label class="control-label col-form-label">Centro de Formacion</label>
+                                                    </div>
+                                                    <div class="col-sm-8 col-12">
+                                                        <select id="my-select" class="form-control" name="centro_form">
+                                                            <?php foreach ($this->sedes->db->get_sedes() as $sedes) {
+                                                                if ($ui['sede'] == $sedes['id_sede']) {
+                                                            ?>
+                                                                    <option selected value="<?= $sedes['id_sede'] ?>"><?= $sedes['nombre_sede'] ?></option>
+                                                                <?php } else { ?>
+                                                                    <option value="<?= $sedes['id_sede'] ?>"><?= $sedes['nombre_sede'] ?></option>
+
+                                                            <?php }
+                                                            } ?>
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
 
                                         <div class="card shadow">
                                             <div class="card-body">
@@ -357,6 +422,29 @@ class ui_expedientes extends gui
             </div>
         </div>
         </div>
+        <script>
+            window.addEventListener('load', () => {
+                datos = document.querySelector("#datos").value;
+                data = JSON.parse(datos);
+                check = document.querySelectorAll(".ocupacion");
+                for (let index = 0; index < data.length; index++) {
+                    if (data[index].tipo == "Estudia") {
+                        check[0].setAttribute('checked', 'true');
+                        document.querySelector("#estudia").value = data[index].lugar;
+                    }
+                    if (data[index].tipo == "Trabaja") {
+                        check[1].setAttribute('checked', 'true');
+                        document.querySelector("#trabaja").value = data[index].lugar;
+                    }
+                    if (data[index].tipo == "No Estudia") {
+                        check[2].setAttribute('checked', 'true');
+                    }
+                    if (data[index].tipo == "No Trabaja") {
+                        check[3].setAttribute('checked', 'true');
+                    }
+                }
+            });
+        </script>
 <?php
     }
 }

@@ -4,10 +4,10 @@ require_once('conexion.php');
 class db_joven extends conexion
 {
 
-    function cargar_foto($destino)
+    function cargar($destino,$archivo)
     {
-        if (isset($_FILES['foto'])) {
-            $foto = $_FILES['foto'];
+        if (isset($_FILES[$archivo])) {
+            $foto = $_FILES[$archivo];
             $destino = $destino . $foto['name'];
             move_uploaded_file($foto['tmp_name'], $destino);
         } else {
@@ -15,24 +15,18 @@ class db_joven extends conexion
         }
         return $destino;
     }
-    function cargar_carta($destino)
-    {
-        if (isset($_FILES['carta'])) {
-            $carta = $_FILES['carta'];
-            $destino = $destino . $carta['name'];
-            move_uploaded_file($carta['tmp_name'], $destino);
-        } else {
-            $destino = '';
-        }
-        return $destino;
-    }
+
     function insert_joven($data)
     {
         extract($data);
         $imagen = 'assets/perfiles/jovenes/';
-        $imagen = $this->cargar_foto($imagen);
+        $imagen = $this->cargar($imagen,'foto');
         $compromiso = 'assets/cartas/jovenes/';
-        $compromiso = $this->cargar_carta($compromiso);
+        $compromiso = $this->cargar($compromiso,'compromiso');
+        $consentimiento = 'assets/consentimiento/jovenes/';
+        $consentimiento = $this->cargar($consentimiento,'consentimiento');
+        $copia_cedula = 'assets/cedulas/jovenes/';
+        $copia_cedula = $this->cargar($copia_cedula,'copia_cedula');
 
         print_r($this->execute(
             "call insert_joven('$nombre','$primer_apellido','$segundo_apellido'
@@ -40,8 +34,7 @@ class db_joven extends conexion
                     '$genero','$fecha_nac','$telefono','$cedula','$correo','$civil','$canton'
                     ,'$provincia', '$distrito','$estado','$fecha_reg'
                     ,'$centro_form','$generacion','$direccion'
-                    ,'$compromiso','$imagen','$miembro','$ayuda','$consentimiento','$copia_cedula')"
-        ));
+                    ,'$compromiso','$imagen','$miembros','$ayuda','$consentimiento','$copia_cedula')"));
     }
     function get_id()
     {
@@ -66,21 +59,23 @@ class db_joven extends conexion
         return $this->get_data("select *, if(n.jefe=1, 'Si','No') as lider from nucleo_familiar n where n.id_joven  ='$id'");
     }
 
-    function insert_ocupacion($data)
+    function insert_ocupacion($id,$tipo,$lugar)
     {
-        extract($data);
         $this->execute("call insert_ocupacion('$id','$lugar','$tipo')");
     }
     function get_jovenes()
     {
-        return $this->get_data('select * from jovenes');
+        return $this->get_data("select * from jovenes where estado Not IN('0')");
     }
     function get_joven($id)
     {
         return $this->get_data("call get_joven('$id')");
     }
+    function get_ocupacion($id){
+        return $this->get_data("select * from ocupacion_joven where id_joven='$id'");
+    }
     function delete($id)
     {
-        $this->execute("delete from jovenes where id_joven='$id'");
+        $this->execute("update jovenes j set j.estado='0' where id_joven='$id'");
     }
 }

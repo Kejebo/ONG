@@ -1,0 +1,67 @@
+import mysql.connector
+
+
+class Conexion:
+    def __init__(self):
+        self.connection = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='',
+            db='python'
+        )
+        self.cursor = self.connection.cursor()
+
+    def execute(self, sql, data):
+        try:
+            self.cursor.execute(sql, data)
+            self.connection.commit()
+        except Exception as e:
+            raise
+
+    def get_datas(self, sql):
+        try:
+            self.cursor.execute(sql)
+            lista = self.cursor.fetchall()
+            self.cursor.close()
+        except Exception as e:
+            raise
+        return lista
+    def get_data(self, sql,data):
+        try:
+            self.cursor.execute(sql,data)
+            lista = self.cursor.fetchall()
+            self.cursor.close()
+        except Exception as e:
+            raise
+        return lista
+
+
+class Personas(Conexion):
+    def __init__(self):
+        super().__init__()
+
+    def insertar(self, data):
+        self.execute("insert into personas(nombre, edad) values(%s,%s)", data)
+
+    def get_personas(self):
+        data = []
+        list = self.get_datas("select * from personas")
+        for persona in list:
+            data.append({"Nombre":persona[1], "Edad":persona[2]})
+        return data
+
+    def get_persona(self,id):
+        data = []
+        list = self.get_data("select * from personas where id_persona= %s", id)
+        for persona in list:
+            data.append({"Nombre":persona[1], "Edad":persona[2]})
+        return data
+
+
+# print(db.cursor.execute('SHOW DATABASES'))
+# db.insert(tuple(('Carne',4000)))
+# print(db.get_data())
+
+data = Personas()
+#data.insertar(("Kendrick", 24))
+print(data.get_persona((2,)))

@@ -53,6 +53,15 @@ class gui extends ln_security
             "Pensionado" => "Pensionado"
         );
     }
+    function get_ocupacion_joven()
+    {
+        return array(
+            "1" => "Estudia",
+            "2" => "Trabaja",
+            "3" => "No estudia",
+            "4" => "No trabaja"
+        );
+    }
 
     function get_acceso()
     {

@@ -43,6 +43,7 @@ class ui_joven extends gui
                                     <select class="form-control" type="text" name="estado">
                                         <option value="activo">Activo</option>
                                         <option value="inactivo">Inactivo</option>
+                                        <option value="prospecto">Prospecto</option>
                                     </select>
 
                                 </div>
@@ -139,11 +140,11 @@ class ui_joven extends gui
                                     <label>Rec. Ayuda Social</label>
                                 </div>
                                 <div class="form-check form-check-inline col-sm-1">
-                                    <input id="my-input" class="form-check-input" type="radio" name="ayuda" value="true">
+                                    <input id="my-input" class="form-check-input" type="radio" name="ayuda" value="1">
                                     <label for="my-input" class="form-check-label">Si</label>
                                 </div>
                                 <div class="form-check form-check-inline col-sm-1">
-                                    <input id="my-input" class="form-check-input" type="radio" name="ayuda" value="true">
+                                    <input id="my-input" class="form-check-input" type="radio" name="ayuda" value="0">
                                     <label for="my-input" class="form-check-label">No</label>
                                 </div>
                             </div>
@@ -203,7 +204,7 @@ class ui_joven extends gui
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-check col-12 col-md-3">
-                                    <input id="my-input" class="form-check-input" type="checkbox" name="ocupacion[]" value="true">
+                                    <input id="my-input" class="form-check-input" type="checkbox" name="ocupacion[]" value="Estudia">
                                     <label for="my-input" class="form-check-label">Estudia</label>
                                 </div>
                                 <div class="form-group col-12 col-md-9">
@@ -212,22 +213,22 @@ class ui_joven extends gui
                             </div>
                             <div class="row">
                                 <div class="form-check col-12 col-md-3">
-                                    <input id="my-input" class="form-check-input" type="checkbox" name="ocupacion[]" value="true">
-                                    <label for="my-input" class="form-check-label">Trabaja</label>
+                                    <input class="form-check-input" type="checkbox" name="ocupacion[]" value="Trabaja">
+                                    <label class="form-check-label">Trabaja</label>
                                 </div>
                                 <div class="form-group col-12 col-md-9">
-                                    <input id="my-input" type="text" name="trabaja" style="width: 100%;" placeholder="Donde...">
+                                    <input  type="text" name="trabaja" style="width: 100%;" placeholder="Donde...">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-check col-12">
-                                    <input id="my-input" class="form-check-input" type="checkbox" name="ocupacion[]" value="true">
-                                    <label for="my-input" class="form-check-label">No Estudia</label>
+                                    <input class="form-check-input" type="checkbox" name="ocupacion[]" value="No estudia">
+                                    <label class="form-check-label">No Estudia</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-check col-12">
-                                    <input id="my-input" class="form-check-input" type="checkbox" name="ocupacion[]" value="true">
+                                    <input id="my-input" class="form-check-input" type="checkbox" name="ocupacion[]" value="No Trabaja">
                                     <label for="my-input" class="form-check-label">No trabaja</label>
                                 </div>
                             </div>
@@ -348,14 +349,14 @@ class ui_joven extends gui
                             <br>
                             <label class="control-label col-form-label">Copia de Cedula</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="copia_cedula" aria-describedby="inputGroupFileAddon01">
+                                <input type="file" class="custom-file-input" name="copia_cedula" aria-describedby="inputGroupFileAddon01">
                                 <label class="custom-file-label" for="copia_cedula">Seleccione la cedula</label>
                             </div>
                             <br>
                             <br>
                             <label class="control-label col-form-label">Carta compromiso</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="carta" id="compromiso" aria-describedby="inputGroupFileAddon01">
+                                <input type="file" class="custom-file-input" name="compromiso" aria-describedby="inputGroupFileAddon01">
                                 <label class="custom-file-label" for="carta">Selecciones el archivo</label>
                             </div>
                             <br>
