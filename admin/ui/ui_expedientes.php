@@ -39,10 +39,10 @@ class ui_expedientes extends gui
                                             <div class="card-body">
                                                 <h4>Datos Personales</h4>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm-12 col-md-5">
                                                         <label class="control-label col-form-label">Status</label>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-12 col-md-7">
                                                         <select class="form-control" type="text" name="estado">
                                                             <?php foreach ($this->get_status() as $status) { ?>
                                                                 <?php if ($status == $ui['estado']) { ?>
@@ -56,63 +56,63 @@ class ui_expedientes extends gui
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm-12 col-md-5">
                                                         <label class="control-label col-form-label">Nombre</label>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-12 col-md-7">
                                                         <input type="text" name="nombre" value="<?= $ui['nombre'] ?>" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm-12 col-md-5">
                                                         <input type="hidden" name="id" value="<?= $ui['id_joven'] ?>">
                                                         <label class="control-label col-form-label">Primer Apellido</label>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-12 col-md-7">
                                                         <input type="text" name="primer_apellido" value="<?= $ui['primer_apellido'] ?>" class="form-control">
 
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm-12 col-md-5">
                                                         <label class="control-label col-form-label">Segundo Apellido</label>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-12 col-md-7">
                                                         <input type="text" name="segundo_apellido" value="<?= $ui['segundo_apellido'] ?>" class="form-control">
 
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-5"><label>Cedula</label>
+                                                    <div class="col-sm-12 col-md-5"><label>Cedula</label>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-12 col-md-7">
                                                         <input type="text" name="cedula" value="<?= $ui['cedula'] ?>" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm-12 col-md-5">
                                                         <label class="control-label col-form-label">Fecha de nac.</label>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-12 col-md-7">
                                                         <input type="date" name="fecha_nac" value="<?= $ui['fecha_nacimiento'] ?>" class="form-control">
 
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm-12 col-md-5">
                                                         <label class="control-label col-form-label">Edad</label>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-12 col-md-7">
                                                         <input type="text" name="edad" value="<?= $ui['edad'] ?>" class="form-control">
 
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm-12 col-md-5">
                                                         <label class="control-label col-form-label">Genero</label>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-12 col-md-7">
                                                         <select name="genero" class="form-control">
                                                             <?php foreach ($this->get_genero() as $genero) { ?>
                                                                 <?php if ($genero == $ui['genero']) { ?>
@@ -126,10 +126,10 @@ class ui_expedientes extends gui
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm-12 col-md-5">
                                                         <label class="control-label col-form-label">Estado Civil</label>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-12 col-md-7">
                                                         <select name="civil" class="form-control">
                                                             <?php foreach ($this->get_civil() as $status) { ?>
                                                                 <?php if ($status == $ui['estado_civil']) { ?>
@@ -142,20 +142,20 @@ class ui_expedientes extends gui
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm-12 col-md-5">
                                                         <label>Cant. Miembros</label>
                                                     </div>
 
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-12 col-md-7">
                                                         <input class="form-control" type="number" name="miembros" value="<?= $ui['cant_miembros'] ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-12 col-md-6">
                                                         <label>Rec. Ayuda Social</label>
                                                     </div>
                                                     <?php for ($i = 1; $i > -1; $i--) { ?>
-                                                        <div class="form-check form-check-inline col-sm-1">
+                                                        <div class="form-check form-check-inline col-md-1 col-sm-6">
                                                             <?php if ($ui['ayuda_social'] == 1) { ?>
                                                                 <input class="form-check-input" checked type="radio" name="ayuda" value="<?= $i ?>">
                                                             <?php } else { ?>
@@ -174,35 +174,35 @@ class ui_expedientes extends gui
                                             <div class="card-body">
                                                 <h5>Domicilio</h5>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm-12 col-md-5">
                                                         <label class="control-label col-form-label">Provincia</label>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-12 col-md-7">
                                                         <input type="text" class="form-control" name="provincia" value="<?= $ui['provincia'] ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm-12 col-md-5">
                                                         <label class="control-label col-form-label">Canton</label>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-12 col-md-7">
                                                         <input type="text" class="form-control" name="canton" value="<?= $ui['canton'] ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm-12 col-md-5">
                                                         <label class="control-label col-form-label">Distrito</label>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-12 col-md-7">
                                                         <input type="text" class="form-control" name="distrito" value="<?= $ui['distrito'] ?>">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <div class="col-sm-4 col-12">
+                                                    <div class="col-sm-12 col-md-4 col-12">
                                                         <label class="control-label col-form-label">Direccion</label>
                                                     </div>
-                                                    <div class="col-sm-8 col-12">
+                                                    <div class="col-sm-12 col-md-8 col-12">
                                                         <textarea value="<?= $ui['direccion'] ?>" name="direccion" class="form-control" cols="30" rows="2"><?= $ui['direccion'] ?>
                               </textarea>
                                                     </div>
@@ -254,26 +254,26 @@ class ui_expedientes extends gui
                                             <div class="card-body">
                                                 <h5>Detalle de Registro</h5>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-4 col-12">
+                                                    <div class="col-sm-12 col-md-4 col-12">
                                                         <label class="control-label col-form-label">Fecha de registro.</label>
                                                     </div>
-                                                    <div class="col-sm-8 col-12">
+                                                    <div class="col-sm-12 col-md-8 col-12">
                                                         <input type="date" name="fecha_reg" class="form-control" value="<?= $ui['fecha_registro'] ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-4 col-12">
+                                                    <div class="col-sm-12 col-md-4 col-12">
                                                         <label class="control-label col-form-label">Generacion</label>
                                                     </div>
-                                                    <div class="col-sm-8 col-12">
+                                                    <div class="col-sm-12 col-md-8 col-12">
                                                         <input type="text" name="generacion" class="form-control" value="<?= $ui['generacion'] ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-4 col-12">
+                                                    <div class="col-sm-12 col-md-4 col-12">
                                                         <label class="control-label col-form-label">Centro de Formacion</label>
                                                     </div>
-                                                    <div class="col-sm-8 col-12">
+                                                    <div class="col-sm-12 col-md-8 col-12">
                                                         <select id="my-select" class="form-control" name="centro_form">
                                                             <?php foreach ($this->sedes->db->get_sedes() as $sedes) {
                                                                 if ($ui['sede'] == $sedes['id_sede']) {
@@ -297,28 +297,28 @@ class ui_expedientes extends gui
                                                 <h4>Contacto</h4>
 
                                                 <div class="form-group row">
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-12 col-md-4">
                                                         <label class="control-label col-form-label">Telefono</label>
                                                     </div>
-                                                    <div class="col-sm-8">
+                                                    <div class="col-sm-12 col-md-8">
                                                         <input type="text" class="form-control" name="telefono" value="<?= $ui['telefono'] ?>">
                                                     </div>
                                                 </div>
                                                 <h4>Contacto de Emergencia</h4>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-12 col-md-4">
                                                         <label class="control-label col-form-label">Nombre</label>
                                                     </div>
-                                                    <div class="col-sm-8">
+                                                    <div class="col-sm-12 col-md-8">
                                                         <input type="text" class="form-control" name="nombre_emergencia" value="<?= $ui['nombre_familiar'] ?>">
 
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-12 col-md-4">
                                                         <label class="control-label col-form-label">Rasgo </label>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-12 col-md-7">
                                                         <select class="form-control" type="text" name="estado">
                                                             <?php foreach ($this->get_familiar() as $familiar) { ?>
                                                                 <?php if ($familiar == $ui['tipo_conocido']) { ?>
@@ -333,10 +333,10 @@ class ui_expedientes extends gui
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-12 col-md-4">
                                                         <label class="control-label col-form-label">Telefono</label>
                                                     </div>
-                                                    <div class="col-sm-8">
+                                                    <div class="col-sm-12 col-md-8">
                                                         <input type="text" class="form-control" name="telefono_emergencia" value="<?= $ui['telefono_familiar'] ?>">
 
                                                     </div>
