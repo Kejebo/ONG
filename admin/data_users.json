@@ -1,0 +1,17 @@
+[
+    {"name":"Nombre","position":"B"},
+    {"name":"Primer Apellido","position":"C"},
+    {"name":"Segundo Apellido","position":"D"},
+    {"name":"Cedula","position":"E"},
+    {"name":"Fecha Nacimiento","position":"F"},
+    {"name":"Edad","position":"G"},
+    {"name":"Genero","position":"H"},
+    {"name":"Tipo","position":"I"},
+    {"name":"Correo","position":"J"},
+    {"name":"Estado Civil","position":"K"},
+    {"name":"Canton","position":"L"},
+    {"name":"Direccion","position":"M"},
+    {"name":"Sede","position":"N"},
+    {"name":"Telefono","position":"O"}
+    ]
+    

@@ -49,8 +49,8 @@ class db_seguimiento extends conexion
     {
         return $this->get_data("select * from jovenes where id_joven='$id'");
     }
-    function get_seguimientos(){
-        return $this->get_data("call get_seguimientos()");
+    function get_seguimientos($id){
+        return $this->get_data("call get_seguimientos('$id')");
 
     }
     function get_seguimiento($id){
@@ -107,7 +107,7 @@ class db_seguimiento extends conexion
     {
         extract($data);
         $destino = $documento;
-        if ($_FILES['guia_modificada'] != null) {
+        if ($_FILES['guia_modificada']['name'] != null) {
             $destino = 'assets/documentos/seguimientos/';
             $destino = $this->cargar_update($destino);
         }

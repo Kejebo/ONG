@@ -140,7 +140,7 @@ class ui_evento extends gui
 
                                 <div class="form-group">
                                     <label>Descripcion</label>
-                                    <textarea name="descripcion" class="form-control" id="" cols="30" rows="5"><?= $evento != null ? $evento['descripcion'] : '' ?></textarea>
+                                    <textarea name="descripcion" class="form-control" id="" cols="30" rows="5"><?= $evento != null ? $evento['actividad'] : '' ?></textarea>
                                 </div>
 
                             </div>

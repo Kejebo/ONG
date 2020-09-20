@@ -18,8 +18,8 @@ class db_reunion extends conexion
         extract($data);
         $id_usuario=json_decode($_COOKIE['ONG'], true)['id'];
 
-        return  $this->execute(
-            "call update_reunion('$id','$numero','$fecha','$objectivo','$lugar','$inicio','$final','$id_usuario')"
+        $this->execute(
+            "call update_reunion('$id','$numero','$fecha','$lugar','$objectivo','$inicio','$final')"
         );
     }
 

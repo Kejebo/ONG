@@ -17,11 +17,10 @@
                 $destino = 'assets/logos/patrocinador/';
                 $destino = $this->cargar($destino);
                 $this->execute(
-                    "call insert_patrocinador('$institucion','$responsable','$direccion','$telefono','$correo','$cedula','$aportes','$destino','$visualizar')"
+                    "call insert_patrocinador('$institucion','$responsable','$direccion','$telefono','$correo','$cedula','$aportes','$destino','$visualizar','$descripcion')"
                 );
             }
             function update_patrocinador($data){
-                extract($data);
                 extract($data);
                 $destino = 'assets/logos/patrocinador/';
                 $destino = $this->cargar($destino);

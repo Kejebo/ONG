@@ -45,7 +45,9 @@ class ui_inscripcion extends gui
                                     <h4>Jovenes Incritos</h4>
                                 </div>
                                 <div class="float-right">
-                                    <span class="btn btn-primary mr-4" data-toggle="modal" data-target="#jovenes"><i class="fas fa-user-plus"></i> INCRIBIR</span>
+                                    <span class="btn btn-primary" data-toggle="modal" data-target="#jovenes"><i class="fas fa-user-plus"></i> INCRIBIR</span>
+                                    <a target="_blank" href="pdfs.php?action=lista-jovenes-evento&id=<?=$_GET['id']?>" class="btn btn-danger"><i class="fas fa-file-pdf"></i> Listado</a>
+                         
                                 </div>
                             </div>
                         </div>
@@ -57,7 +59,7 @@ class ui_inscripcion extends gui
                                     <?php foreach ($this->ln->db->get_voluntarios($_GET['id']) as $jovenes) { ?>
                                         <tr>
                                             <td><?= $jovenes['cedula'] ?></td>
-                                            <td><?= $jovenes['nombre'] . ' ' . $jovenes['primer_apellido'] . ' ' . $jovenes['segundo_apellido'] ?></td>
+                                            <td><?= $jovenes['joven'] . ' ' . $jovenes['primer_apellido'] . ' ' . $jovenes['segundo_apellido'] ?></td>
                                             <td><a href="inscripciones.php?action=delete_voluntario&id=<?= $_GET['id'] ?>&evento=<?= $_GET['id'] ?>&joven=<?= $jovenes['id_joven'] ?>" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
                                         </tr>
                                     <?php } ?>
@@ -72,7 +74,8 @@ class ui_inscripcion extends gui
                                     <h4>Otros Asistentes</h4>
                                 </div>
                                 <div class="float-right">
-                                    <span class="btn btn-primary mr-4" data-toggle="modal" data-target="#asistente"><i class="fas fa-user-plus"></i> INCRIBIR</span>
+                                    <span class="btn btn-primary" data-toggle="modal" data-target="#asistente"><i class="fas fa-user-plus"></i> INCRIBIR</span>
+                                    <a target="_blank" href="pdfs.php?action=lista-asistente-evento&id=<?=$_GET['id']?>" class="btn btn-danger"><i class="fas fa-file-pdf"></i> Listado</a>
                                 </div>
                             </div>
                         </div>
@@ -143,7 +146,7 @@ class ui_inscripcion extends gui
                         <div class="card-body">
                             <div class="form-group row">
                                 <label class="col-3">Descripcion</label>
-                                <label style="font-weight: unset" class="col-9"><?= $ui['descripcion'] ?></label>
+                                <label style="font-weight: unset" class="col-9"><?= $ui['actividad'] ?></label>
                             </div>
                             <hr>
                             <div class="form-group row">
@@ -362,6 +365,10 @@ class ui_inscripcion extends gui
                                 <div class="form-group col-sm-6">
                                     <label>Telefono</label>
                                     <input class="form-control" type="text" name="telefono">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label>Miembros</label>
+                                    <input class="form-control" type="number" name="miembros">
                                 </div>
                             </div>
                             <div class="form-group">

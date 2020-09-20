@@ -41,19 +41,34 @@ class ui_patrocinador extends gui
                             <input type="hidden" name="id" value="<?= $patrocinador != null ? $patrocinador['id_patrocinador'] : '' ?>">
                             <div class="form-group">
                                 <label for="my-input">Logo</label>
-                                <input id="my-input" class="form-control-file" type="file" name="logo">
+                                <input id="my-input" class="form-control" type="file" name="logo">
                             </div>
                             <div class="form-group">
                                 <label for="">Ver en pagina web</label>
                                 <br>
-                                <div class="form-check form-check-inline">
-                                    <input id="my-input" class="form-check-input" type="radio" name="visualizar" value="1">
-                                    <label for="my-input" class="form-check-label">Si</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input id="my-input" class="form-check-input" type="radio" name="visualizar" value="0">
-                                    <label for="my-input" class="form-check-label">No</label>
-                                </div>
+                                <?php if ($patrocinador==null) { ?>
+                                    <div class="form-check form-check-inline">
+                                        <input id="my-input" class="form-check-input" type="radio" name="visualizar" value="1">
+                                        <label for="my-input" class="form-check-label">Si</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input id="my-input" class="form-check-input" checked type="radio" name="visualizar" value="0">
+                                        <label for="my-input" class="form-check-label">No</label>
+                                    </div>
+                                <?php } else { ?>
+                                   
+                                        <?php for ($i = 1; $i > -1; $i--) { ?>
+                                            <div class="form-check form-check-inline col-md-1 col-sm-6">
+                                                <?php if ($patrocinador['visualizar'] == $i) { 
+                                                    ?>
+                                                    <input class="form-check-input" checked type="radio" name="visulizar" value="<?= $i ?>">
+                                                <?php } else { ?>
+                                                    <input class="form-check-input" type="radio" name="visulizar" value="<?= $i ?>">
+                                                <?php } ?>
+                                                <label class="form-check-label"><?= $i > 0 ? 'Si' : 'No' ?></label>
+                                            </div>
+                                        <?php } ?>
+                                <?php } ?>
                             </div>
                             <div class="form-group">
                                 <label>Empresa</label>
@@ -84,6 +99,10 @@ class ui_patrocinador extends gui
                                 <label>Aportes</label>
                                 <textarea name="aportes" class="form-control" cols="30" rows="3"><?= $patrocinador != null ? $patrocinador['aportes'] : '' ?></textarea>
                             </div>
+                            <div class="form-group">
+                                <label>Descripcion</label>
+                                <textarea name="descripcion" class="form-control" cols="30" rows="3"><?= $patrocinador != null ? $patrocinador['descripcion'] : '' ?></textarea>
+                            </div>
 
                             <hr>
                             <div class="container text-center p-2">
@@ -97,10 +116,18 @@ class ui_patrocinador extends gui
             <div class="col-lg-8 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Lista de Patrocinadores</h4>
+                        <div class="clearfix">
+                            <div class="float-left">
+                            <h4>Lista de Patrocinadores</h4>
+                                
+                            </div>
+                            <div class="float-right">
+                            <a href="excel.php?action=aliados" class="btn btn-success"><i class="fas fa-file-excel"></i> Generar</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body table-responsive">
-                        <table id="zero_config" class="table table-light" >
+                        <table id="zero_config" class="table table-light">
                             <thead>
                                 <th>Logo</th>
                                 <th>Institucion</th>
@@ -112,7 +139,7 @@ class ui_patrocinador extends gui
                             <tbody>
                                 <?php foreach ($this->ln->db->get_patrocinadores() as $list) { ?>
                                     <tr>
-                                        <td><img src="<?=$list['logo']?>" alt="" style="max-width: 50px;"></td>
+                                        <td><img src="<?= $list['logo'] ?>" alt="" style="max-width: 50px;"></td>
                                         <td><?= $list['institucion'] ?></td>
                                         <td><?= $list['responsable'] ?></td>
                                         <td><?= $list['telefono'] ?></td>

@@ -1,6 +1,7 @@
 <?php
     require_once('ui/ui_expedientes.php');
     $ui= new ui_expedientes();
+    $ui->ln->controller();
     $ui->check_access("expedientes.php");
     $ui->get_header();
     $ui->get_barra();

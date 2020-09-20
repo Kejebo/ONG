@@ -32,7 +32,7 @@ class ui_expedientes extends gui
                     <!-- Tab panes -->
                     <div class="tab-content tabcontent-border">
                         <div class="tab-pane p-20 active show" id="home" role="tabpanel">
-                            <form action="jovenes.php?action=update" method="post">
+                            <form action="expedientes.php?action=update" method="post" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-sm-4 p-3">
                                         <div class="card shadow">
@@ -104,6 +104,16 @@ class ui_expedientes extends gui
                                                     </div>
                                                     <div class="col-sm-12 col-md-7">
                                                         <input type="text" name="edad" value="<?= $ui['edad'] ?>" class="form-control">
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12 col-md-5">
+                                                        <label class="control-label col-form-label">Correo</label>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-7">
+                                                        <input type="text" name="correo" value="<?= $ui['correo'] ?>" class="form-control">
 
                                                     </div>
                                                 </div>
@@ -319,7 +329,7 @@ class ui_expedientes extends gui
                                                         <label class="control-label col-form-label">Rasgo </label>
                                                     </div>
                                                     <div class="col-sm-12 col-md-7">
-                                                        <select class="form-control" type="text" name="estado">
+                                                        <select class="form-control" type="text" name="tipo">
                                                             <?php foreach ($this->get_familiar() as $familiar) { ?>
                                                                 <?php if ($familiar == $ui['tipo_conocido']) { ?>
                                                                     <option selected value="<?= $familiar ?>"><?= $familiar ?></option>
@@ -355,37 +365,37 @@ class ui_expedientes extends gui
 
                                                 <label class="control-label col-form-label">Foto de Perfil</label>
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" name='foto' aria-describedby="inputGroupFileAddon01">
-                                                    <label class="custom-file-label" for="foto">Choose file</label>
+                                                    <input type="file" class="custom-file-input" name="foto"  >
+                                                    <label class="custom-file-label">Choose file</label>
                                                 </div>
+                                                <input type="hidden" name="perfil" value="<?=$ui['foto']?>">
+
                                                 <br>
                                                 <br>
                                                 <label class="control-label col-form-label">Consentimiento Informado</label>
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" name="consentimiento" id="consentimiento" aria-describedby="inputGroupFileAddon01">
-                                                    <label class="custom-file-label" for="consentimiento">Choose file</label>
+                                                    <input type="file" class="custom-file-input" name="consentimiento">
+                                                    <label class="custom-file-label">Choose file</label>
                                                 </div>
+                                                <input type="hidden" name="consenti" value="<?=$ui['consentimiento']?>">
+
                                                 <br>
                                                 <br>
                                                 <label class="control-label col-form-label">Copia de Cedula</label>
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="copia_cedula" aria-describedby="inputGroupFileAddon01">
-                                                    <label class="custom-file-label" for="copia_cedula">Choose file</label>
+                                                    <input type="file" class="custom-file-input" name="copia_cedula">
+                                                    <label class="custom-file-label">Choose file</label>
                                                 </div>
+                                                <input type="hidden" name="cedula_dos" value="<?=$ui['copia_cedula']?>">
+
                                                 <br>
                                                 <br>
                                                 <label class="control-label col-form-label">Carta compromiso</label>
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" name="carta" id="compromiso" aria-describedby="inputGroupFileAddon01">
-                                                    <label class="custom-file-label" for="carta">Choose file</label>
+                                                    <input type="file" class="custom-file-input" name="carta"  aria-describedby="inputGroupFileAddon01">
+                                                    <label class="custom-file-label">Choose file</label>
                                                 </div>
-                                                <br>
-                                                <br>
-                                                <label class="control-label col-form-label">Otros Archivos</label>
-                                                <div class="custom-file">
-                                                    <input type="file" name="otros[]" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                                </div>
+                                            <input type="hidden" name="compro" value="<?=$ui['compromiso']?>">
                                             </div>
                                         </div>
 

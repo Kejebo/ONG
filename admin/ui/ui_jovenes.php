@@ -22,6 +22,8 @@ class ui_jovenes extends gui
                             </div>
                             <div class="float-right mr-2">
                                 <a href="joven.php" class="btn btn-dark">+Nuevo</a>
+                                <a href="excel.php?action=jovenes" class="btn btn-success"><i class="fas fa-file-excel"></i> Generar</a>
+
                             </div>
                         </div>
                     </div>

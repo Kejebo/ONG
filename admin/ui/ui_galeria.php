@@ -21,6 +21,8 @@ class ui_galeria extends gui
                 <li class="breadcrumb-item" aria-current="page"><a class="btn btn-info" href="eventos.php">Eventos</a></li>
                 <li class="breadcrumb-item" aria-current="page"><a class="btn btn-info" href="inscripciones.php?id=<?= $_GET['id'] ?>">Inscripciones</a></li>
                 <li class="breadcrumb-item" aria-current="page"><a class="btn btn-info active" href="galeria.php?id=<?= $_GET['id'] ?>">Galería</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a class="btn btn-info" href="asistencia.php?id=<?= $_GET['id'] ?>">Asistencia</a></li>
+
             </ol>
         </nav>
         <div class="container">

@@ -25,18 +25,22 @@ class db_evento extends conexion
         );
         print_r($result);
     }
-    function insert_objectivo($data){
+    function insert_objectivo($data)
+    {
         extract($data);
         $this->execute("insert into objectivo_evento(nombre_objectivo) values('$nombre')");
     }
-    function get_objectivos(){
+    function get_objectivos()
+    {
         return $this->get_data("select * from objectivo_evento where estado=1 order by nombre_objectivo asc");
     }
-    function insert_categoria($data){
+    function insert_categoria($data)
+    {
         extract($data);
         $this->execute("insert into categoria_eventos(nombre_categoria) values('$nombre')");
     }
-    function get_categorias(){
+    function get_categorias()
+    {
         return $this->get_data("select * from categoria_eventos where estado=1 order by nombre_categoria asc");
     }
 
@@ -107,11 +111,11 @@ class db_evento extends conexion
     function insert_asistente($id, $data)
     {
         extract($data);
-        $this->execute("call insert_asistente('$id','$nombre','$genero','$fecha','$telefono','$cedula','$tipo');");
+        $this->execute("call insert_asistente('$id','$nombre','$genero','$fecha','$telefono','$cedula','$tipo','$miembros');");
     }
     function get_asistentes_enlistado($id)
     {
-        return $this->get_data("select * from asistentes where id_evento='$id' and asistio=0");
+        return $this->get_data("select * from asistentes where id_evento='$id'");
     }
     function get_asistentes_externo($id)
     {
@@ -134,36 +138,56 @@ class db_evento extends conexion
         extract($data);
         $imagen = 'assets/galeria/';
         $imagen = $this->cargar_foto($imagen);
-       $this->execute("insert into galeria_eventos(id_evento,foto) values('$id','$imagen');");
+        $this->execute("insert into galeria_evento(id_evento,foto) values('$id','$imagen');");
     }
 
     function get_galeria($id)
     {
-        return $this->get_data("select * from galeria_eventos where id_evento='$id';");
+        return $this->get_data("select * from galeria_evento where id_evento='$id';");
     }
     function update_evento($data)
     {
         extract($data);
         $destino = $documento;
-        if ($_FILES['guia'] != null) {
+
+        if ($_FILES['guia']['name'] != null) {
             $destino = 'assets/cartas/eventos/';
             $destino = $this->cargar($destino);
             unlink($documento);
         }
         $this->execute("call update_evento('$id','$facilitador','$joven','$nombre','$descripcion','$fecha','$hora_inicio','$hora_cierre',
-                '$lugar','$direccion_lugar','$destino')");
+                '$lugar','$direccion_lugar','$destino','$categoria','$objectivo')");
     }
-    function insert_joven_asistencia($data){
+    function insert_joven_asistencia($data)
+    {
         extract($data);
-        foreach ($jovenes as $lista) {
-        $this->execute("call update_evento_joven('$lista')");
+        if (isset($jovenes)) {
+            foreach ($jovenes as $lista) {
+                $this->execute("call update_evento_joven('$lista')");
+            }
+        }
+        if (isset($asistente)) {
+            foreach ($asistente as $lista) {
+                $this->execute("update asistentes set asistio=1 where id_asistente='$lista'");
+            }
         }
     }
 
-    function get_asistencia_jovenes($id){
+    function insert_asistencia_evento($data)
+    {
+        extract($data);
+    }
+    function get_asistencia_jovenes($id)
+    {
         return $this->get_data("call get_asistencia_jovenes('$id')");
     }
-    function get_id(){
+
+    function get_asistencia_externa($id)
+    {
+        return $this->get_data("call get_asistencias_externa('$id')");
+    }
+    function get_id()
+    {
         $sql = "select * from eventos
         order by id_evento desc
         limit 1";
@@ -189,19 +213,24 @@ class db_evento extends conexion
     {
         return $this->get_data("call get_asistencia_evento('$id','$minimo','$maximo')");
     }
-    function delete_patrocinios_evento($id){
+    function delete_patrocinios_evento($id)
+    {
         $this->execute("delete from evento_patrocinio where id_evento='$id';");
     }
-    function delete_voluntarios_evento($id){
+    function delete_voluntarios_evento($id)
+    {
         $this->execute("delete from asistentes where id_evento='$id';");
     }
-    function delete_galeria_evento($id){
+    function delete_galeria_evento($id)
+    {
         $this->execute("delete from galeria_eventos where id_evento='$id';");
     }
-    function delete_jovenes_evento($id){
+    function delete_jovenes_evento($id)
+    {
         $this->execute("delete from evento_jovenes where id_evento='$id';");
     }
-    function delete_evento($id){
+    function delete_evento($id)
+    {
         $this->delete_galeria_evento($id);
         $this->delete_jovenes_evento($id);
         $this->delete_voluntarios_evento($id);

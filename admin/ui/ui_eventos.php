@@ -22,6 +22,7 @@ class ui_eventos extends gui
                             </div>
                             <div class="float-right mr-2">
                                 <a href="evento.php" class="btn btn-info"><i class="far fa-calendar-alt"></i> Nuevo Evento</a>
+                                <a href="excel.php?action=eventos" class="btn btn-success"><i class="fas fa-file-excel"></i> Exportar Historial</a>
                             </div>
                         </div>
                     </div>

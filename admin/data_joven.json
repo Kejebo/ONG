@@ -1,0 +1,23 @@
+[
+{"name":"Nombre","position":"B"},
+{"name":"Primer Apellido","position":"C"},
+{"name":"Segundo Apellido","position":"D"},
+{"name":"Cedula","position":"E"},
+{"name":"Fecha Nacimiento","position":"F"},
+{"name":"Edad","position":"G"},
+{"name":"Genero","position":"H"},
+{"name":"Estado","position":"I"},
+{"name":"Estado Civil","position":"J"},
+{"name":"Cantidad Miembros","position":"K"},
+{"name":"Ayudad Social","position":"L"},
+{"name":"Provincia","position":"M"},
+{"name":"Canton","position":"N"},
+{"name":"Distrito","position":"O"},
+{"name":"Direccion","position":"P"},
+{"name":"Fecha de Ingreso","position":"Q"},
+{"name":"Generacion","position":"R"},
+{"name":"Sede","position":"S"},
+{"name":"Telefono","position":"T"},
+{"name":"Contacto de Emergencia","position":"U"},
+{"name":"Telefono de Contacto","position":"V"}
+]

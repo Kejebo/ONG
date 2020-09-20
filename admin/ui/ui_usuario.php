@@ -1,12 +1,16 @@
 <?php
 require_once('gui.php');
 require_once('ln/ln_usuario.php');
+require_once('ln/ln_sedes.php');
+
 class ui_usuario extends gui
 {
+    var $sedes;
     var $ln;
     function __construct()
     {
         $this->ln = new ln_usuario();
+        $this->sedes= new ln_sedes();
     }
     function controller()
     {
@@ -198,6 +202,25 @@ class ui_usuario extends gui
                                 </div>
                                 <div class="col-sm-7">
                                     <input type="text" name="clave" required class="form-control" value="<?= $ui != null ? $ui['clave'] : '' ?>">
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-5 ">
+                                    <label class="control-label col-form-label">Centro de Formacion</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <select id="my-select" class="form-control" name="centro_form">
+                                        <?php foreach ($this->sedes->db->get_sedes() as $sedes) {
+                                            if ($ui['sede'] == $sedes['id_sede']) {
+                                        ?>
+                                                <option selected value="<?= $sedes['id_sede'] ?>"><?= $sedes['nombre_sede'] ?></option>
+                                            <?php } else { ?>
+                                                <option value="<?= $sedes['id_sede'] ?>"><?= $sedes['nombre_sede'] ?></option>
+
+                                        <?php }
+                                        } ?>
+                                    </select>
 
                                 </div>
                             </div>
