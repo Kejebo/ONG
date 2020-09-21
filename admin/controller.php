@@ -1,9 +1,10 @@
 <?php
 require_once('db/db_reunion.php');
 require_once('db/db_evento.php');
-
+require_once('ln/ln_security.php');
 $db = new db_reunion();
 $evento = new db_evento();
+$security= new ln_security();
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
@@ -57,5 +58,8 @@ if (isset($_GET['action'])) {
             $evento->insert_categoria($_POST);
             echo json_encode($evento->get_categorias());
         break;
+
+        case 'changes':
+            $security->validar_cedula($_POST['cedula']);
     }
 }

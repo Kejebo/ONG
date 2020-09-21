@@ -22,6 +22,14 @@
                         $this->junta->insert_miembro($_POST);
                         header('Location: junta.php');
                     break;
+                    case 'update_member':
+                        $this->junta->update_miembro($_POST);
+                        header('Location: junta.php');
+                    break;
+                    case 'delete_member':
+                        $this->junta->delete_miembro($_GET['id']);
+                        header('Location: junta.php');
+                    break;
                     case 'update':
                         $this->db->update_usuario($_POST);
                         header('Location: usuarios.php');

@@ -21,8 +21,22 @@ function asuntos(form){
   
   });
   }
-
-
+  $('#form-codigo').submit(function (e) { 
+  e.preventDefault();
+  let cedula=$('#cedula').val();
+  $.ajax({
+    data:  {cedula},
+    url:   'controller.php?action=changes', 
+    type:  'post', 
+    success: function (response){
+      
+      let dato= JSON.parse(response);
+      console.log(response);
+      }
+  
+  });
+});
+  
     
     function escritura(){
       document.querySelector('.alert').style.display='none';

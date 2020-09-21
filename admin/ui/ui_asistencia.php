@@ -133,13 +133,16 @@ class ui_asistencia extends gui
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($this->ln->db->get_voluntarios($_GET['id']) as $jovenes) { ?>
+                                    <?php foreach ($this->ln->db->get_voluntarios($_GET['id']) as $jovenes) { 
+                                        if($jovenes['asistio']==0){
+                                        ?>
+                                     
                                         <tr>
                                             <td><input type="checkbox" name="jovenes[]" value="<?= $jovenes['id_joven'] ?>"></td>
                                             <td><?= $jovenes['cedula'] ?></td>
                                             <td><?= $jovenes['nombre'] . ' ' . $jovenes['primer_apellido'] . ' ' . $jovenes['segundo_apellido'] ?></td>
                                         </tr>
-                                    <?php } ?>
+                                    <?php } }?>
 
                                 </tbody>
                             </table>
@@ -182,6 +185,7 @@ class ui_asistencia extends gui
                           
 
                                     <?php foreach ($this->ln->db->get_asistentes_enlistado($_GET['id']) as $asistente) { ?>
+                                        <?php if($asistente['asistio']==0){?>
                                         <tr>
                                             <td><input type="checkbox" name="asistente[]" value="<?= $asistente['id_asistente'] ?>"></td>
 
@@ -190,7 +194,7 @@ class ui_asistencia extends gui
                                             <td><?= $asistente['tipo'] ?></td>
 
                                         </tr>
-                                    <?php } ?>
+                                    <?php } }?>
                                 </tbody>
                             </table>
 

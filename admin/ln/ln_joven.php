@@ -56,7 +56,7 @@ class ln_joven
                         }
                     }
 
-                    //                    header('Location:expedientes.php?action=update_joven&id=' . $_POST['id']);
+                     header('Location:expedientes.php?action=update_joven&id=' . $_POST['id']);
 
                     break;
             }

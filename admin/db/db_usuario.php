@@ -32,6 +32,22 @@ class db_usuario extends conexion
                     ,'$destino','$experiencia','$canton','$estado','$clave','$copia','$tipo','$acceso','$centro_form')"
         );
     }
+
+    function get_codigo($cedula){
+        $data=$this->get_data("select u.clave as c from usuarios u where u.cedula='$cedula'");
+        return $data;
+    }
+
+    function get_codigo_estado($cedula,$codigo){
+        $data=$this->get_data("select * from usuarios u where u.cedula='$cedula' and u.codigo_cambio=$codigo");
+        return $data;
+    }
+    function update_codigo($codigo,$cedula){
+        $this->execute("call update_estado_clave('$codigo','$cedula')");
+    }
+    function cambiar_clave($cedula,$seguridad,$nueva){
+        $this->execute("update usuarios u set u.clave='$nueva' where u.codigo_cambio =$seguridad and u.cedula='$cedula';");
+    }
     function update_usuario($data)
     {
         extract($data);
@@ -68,7 +84,7 @@ class db_usuario extends conexion
     }
     function get_usuarios()
     {
-        return $this->get_data('select *,(SELECT TIMESTAMPDIFF(YEAR,fecha_nacimiento,CURDATE())) as edad from usuarios u inner join sedes s on s.id_sede=u.sede');
+        return $this->get_data('select *,u.estado as status,(SELECT TIMESTAMPDIFF(YEAR,fecha_nacimiento,CURDATE())) as edad from usuarios u inner join sedes s on s.id_sede=u.sede');
     }
     function get_usuario($id)
     {

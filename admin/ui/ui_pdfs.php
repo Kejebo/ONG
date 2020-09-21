@@ -36,7 +36,7 @@ function get_asistencia_externa($db)
 ?>
 
     <div id="titulo">
-        <h2>Lista de Visitantes en el evento <?=$db[0]['nombre']?></h2>
+        <h2>Lista de Voluntarios asistentes para el evento <?=$db[0]['nombre']?></h2>
     </div>
     <br>
     <br>

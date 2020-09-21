@@ -22,8 +22,12 @@
             }
             function update_patrocinador($data){
                 extract($data);
-                $destino = 'assets/logos/patrocinador/';
-                $destino = $this->cargar($destino);
+                $destino = $foto;
+                if ($_FILES['logo']['name'] != null) {
+                    $destino = 'assets/logos/patrocinador/';
+                    $destino = $this->cargar($destino);
+                    unlink($documento);
+                }
                 $this->execute(" call update_patrocinador('$id','$institucion','$responsable','$direccion','$telefono','$correo','$cedula','$aportes','$destino','$visualizar')");
                 }
             function get_patrocinadores(){

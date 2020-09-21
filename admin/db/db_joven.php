@@ -105,7 +105,7 @@ class db_joven extends conexion
     }
     function get_jovenes()
     {
-        return $this->get_data("select *,(SELECT TIMESTAMPDIFF(YEAR,fecha_nacimiento,CURDATE())) as edad from jovenes j inner join sedes s on s.id_sede=j.sede where j.estado Not IN('0')");
+        return $this->get_data("select *,j.estado as status, (SELECT TIMESTAMPDIFF(YEAR,fecha_nacimiento,CURDATE())) as edad from jovenes j inner join sedes s on s.id_sede=j.sede where j.estado Not IN('0')");
     }
     function get_joven($id)
     {

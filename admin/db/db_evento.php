@@ -23,7 +23,6 @@ class db_evento extends conexion
             "call insert_evento('$facilitador','$joven','$nombre','$descripcion','$fecha','$hora_inicio','$hora_cierre',
                     '$lugar','$direccion_lugar','$destino','$categoria','$objectivo')"
         );
-        print_r($result);
     }
     function insert_objectivo($data)
     {

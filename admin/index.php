@@ -1,7 +1,9 @@
 <?php
 require_once('ui/gui.php');
 $ui = new gui();
+
 $ui->check_access("index.php");
+$ui->action_controller();
 $ui->get_header();
 ?>
 
@@ -22,20 +24,32 @@ $ui->get_header();
               <input type="text" class="form-control" name="usuario" title="Ingrese el numero de Cedula" required>
             </div>
             <div class="form-group">
-              <label >CONTRASEÑA</label>
+              <label>CONTRASEÑA</label>
               <input type="password" class="form-control" name="pass" required>
             </div>
             <?php if (isset($_GET['msg'])) { ?>
               <div class="alert alert-danger alert-dismissible fade show">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Error!</strong> Datos Incorrectos
-.
+                <strong>Error!</strong> <?=$_GET['msg']?>
+                .
               </div>
             <?php } ?>
-            <div class="mr-auto">
-              <a href="">¿Has olvidado la contraseña?</a>
-            </div>
+            <?php if (isset($_GET['pass'])) { ?>
+              <div class="alert alert-success alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <?=$_GET['pass']?>
+                .
+              </div>
+            <?php } ?>
+            <div class="clearfix">
+              <div class="float-left">
 
+              </div>
+              <div class="float-right">
+                <small><a href="recuperar_clave.php">¿Has olvidado la contraseña?</a></small>
+
+              </div>
+            </div>
             <hr>
             <button type="submit" class="btn btn-block btn-success">Ingresar</button>
           </form>
@@ -44,7 +58,7 @@ $ui->get_header();
     </div>
   </div>
   <div class="col-2 col-sm-2 col-md-4 col-lg-4"></div>
-</body>
+<body>
 
 <?php
 $ui->get_scripts();

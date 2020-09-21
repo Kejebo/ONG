@@ -48,7 +48,7 @@ class ui_usuarios extends gui
                                         <td><?= $lista['genero'] ?></td>
                                         <td><?= $lista['tipo'] ?></td>
                                         <td><?= $lista['fecha_nacimiento'] ?></td>
-                                        <td><?= $lista['estado'] ?></td>
+                                        <td><?= $lista['status'] ?></td>
                                         <td><a href="usuario.php?action=update_usuario&id=<?= $lista['id_usuario'] ?>" class="btn btn-warning"><i class="far fa-edit"></i></a></td>
                                         <td><a href="index.php?action=delete&id=<?= $lista['id_usuario'] ?>" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
                                         <td><a href="expedientes.php?action=exportar=<?= $lista['id_usuario'] ?>" class="btn btn-info">

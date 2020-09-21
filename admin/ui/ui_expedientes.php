@@ -446,7 +446,7 @@ class ui_expedientes extends gui
                         check[1].setAttribute('checked', 'true');
                         document.querySelector("#trabaja").value = data[index].lugar;
                     }
-                    if (data[index].tipo == "No Estudia") {
+                    if (data[index].tipo == "No estudia") {
                         check[2].setAttribute('checked', 'true');
                     }
                     if (data[index].tipo == "No Trabaja") {

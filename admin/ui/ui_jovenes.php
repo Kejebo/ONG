@@ -9,6 +9,11 @@ class ui_jovenes extends gui
     {
         $this->ln=new ln_joven();
     }
+    function estados($data){
+        if($data==1){
+
+        }
+    }
     function get_build()
     {
 ?>
@@ -50,7 +55,7 @@ class ui_jovenes extends gui
                                 <td><?=$lista['genero']?></td>
                                 <td><?=$lista['estado_civil']?></td>
                                 <td><?=$lista['fecha_nacimiento']?></td>
-                                <td><?=$lista['estado']?></td>
+                                <td><?=$lista['status']?></td>
                                 <td><a href="expedientes.php?action=update_joven&id=<?=$lista['id_joven']?>" class="btn btn-warning"><i class="far fa-edit"></i></a></td>
                                 <td><a href="jovenes.php?action=delete&id=<?=$lista['id_joven']?>" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
                                 <td><a href="pdf.php?action=exportar=<?=$lista['id_joven']?>" class="btn btn-dark"><i class="fas fa-file-pdf"></i></a></td>

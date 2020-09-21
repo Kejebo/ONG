@@ -42,6 +42,8 @@ class ui_patrocinador extends gui
                             <div class="form-group">
                                 <label for="my-input">Logo</label>
                                 <input id="my-input" class="form-control" type="file" name="logo">
+                                <input type="hidden" name="foto" value="<?= $patrocinador['logo'] ?>">
+
                             </div>
                             <div class="form-group">
                                 <label for="">Ver en pagina web</label>
@@ -61,9 +63,9 @@ class ui_patrocinador extends gui
                                             <div class="form-check form-check-inline col-md-1 col-sm-6">
                                                 <?php if ($patrocinador['visualizar'] == $i) { 
                                                     ?>
-                                                    <input class="form-check-input" checked type="radio" name="visulizar" value="<?= $i ?>">
+                                                    <input class="form-check-input" checked type="radio" name="visualizar" value="<?= $i ?>">
                                                 <?php } else { ?>
-                                                    <input class="form-check-input" type="radio" name="visulizar" value="<?= $i ?>">
+                                                    <input class="form-check-input" type="radio" name="visualizar" value="<?= $i ?>">
                                                 <?php } ?>
                                                 <label class="form-check-label"><?= $i > 0 ? 'Si' : 'No' ?></label>
                                             </div>

@@ -8,18 +8,25 @@ class db_junta extends conexion
     {
         extract($data);
       return  $this->execute(
-            "call insert_miembro('$id_facilitador','$puesto')"
+            "call insert_miembro('$usuario','$puesto','$descripcion')"
         );
     }
 
-    function update_patrocinador($data)
+    function update_miembro($data)
     {
         extract($data);
-        print_r($this->execute("call update_miembrio('$id','$id_facilitador','$puesto')"));
+       $this->execute("call update_miembro('$id','$usuario','$puesto','$descripcion')");
     }
     function get_junta()
     {
         return $this->get_data('call get_junta_directiva()');
+    }
+    function delete_miembro($id){
+        $this->execute("delete from miembros_junta_directiva where id_miembro='$id'");
+    }
+    function get_miembro($id)
+    {
+        return $this->get_data("call get_miembro('$id')");
     }
     function get_puestos(){
         return $this->get_data('select * from puestos_directivos');

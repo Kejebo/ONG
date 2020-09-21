@@ -45,7 +45,7 @@ class ui_seguimientos extends gui
                             <div class="card-body">
                                 <h4 class="card-title">Joven: <?= $ui['nombre'] . ' ' . $ui['primer_apellido'] ?></h4>
 
-                                <table id="zero_config" class="table table-light">
+                                <table id="zero_config" class="table table-light table-responsive">
                                     <thead class="thead-light">
                                         <tr>
                                             <th>Fecha</th>
