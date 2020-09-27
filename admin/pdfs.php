@@ -46,8 +46,9 @@ $evento = new db_evento();
     thead th {
         height: 40px;
         font-size: 14px;
-        color: white;
+        color: black;
         text-transform: uppercase;
+    
     }
 
     tbody td {
@@ -122,10 +123,11 @@ $evento = new db_evento();
         case 'seguimientos':
             get_seguimientos($db->get_seguimientos($_GET['id']));
             break;
+        case 'seguimiento':
+            get_seguimiento($db);
+        break;
     }
     ?>
-
-
 </page>
 <?php
 require_once(__DIR__ . "./vendor/autoload.php");

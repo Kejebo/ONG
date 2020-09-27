@@ -37,15 +37,15 @@ class ui_seguimientos extends gui
                                         <h3> Historial de Seguimientos </h3>
                                     </div>
                                     <div class="float-right mr-2">
-                                        <a href="pdfs.php?id=<?=$_GET['id']?>" class="btn btn-primary mr-4"><i class="far fa-plus-square"></i> Exportar</a>
-                                        <span class="btn btn-primary mr-4" data-toggle="modal" data-target="#nuevo"><i class="far fa-plus-square"></i> INCRIBIR</span>
+                                        <a href="pdfs.php?id=<?=$_GET['id']?>" class="btn btn-primary mr-4"><i class="far fa-plus-square"></i> Historial</a>
+                                        <span class="btn btn-success mr-4" data-toggle="modal" data-target="#nuevo"><i class="far fa-plus-square"></i> Nuevo</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <h4 class="card-title">Joven: <?= $ui['nombre'] . ' ' . $ui['primer_apellido'] ?></h4>
 
-                                <table id="zero_config" class="table table-light table-responsive">
+                                <table class="zero_config table table-light">
                                     <thead class="thead-light">
                                         <tr>
                                             <th>Fecha</th>
@@ -66,7 +66,7 @@ class ui_seguimientos extends gui
                                                 <td><?= $seguimientos['asunto'] ?></td>
                                                 <td><a href="seguimiento.php?id_seguimiento=<?= $seguimientos['id_seguimiento'] ?>" class="btn btn-warning"><i class="far fa-edit"></i></a></td>
                                                 <td><a href="seguimiento.php?id=<?= $seguimientos['id_seguimiento'] ?>" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
-                                                <td><a href="informes.php?id=<?= $seguimientos['id_seguimiento'] ?>" class="btn btn-dark"><i class="fas fa-file-pdf"></i></a></td>
+                                                <td><a href="pdfs.php?action=seguimiento&id=<?= $seguimientos['id_seguimiento'] ?>" class="btn btn-dark"><i class="fas fa-file-pdf"></i></a></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>

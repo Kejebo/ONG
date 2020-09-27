@@ -60,6 +60,11 @@ class db_evento extends conexion
     {
         return $this->get_data("call get_evento('$id')");
     }
+
+    function get_eventos_diario($fecha)
+    {
+        return $this->get_data("call get_evento_diario('$fecha')");
+    }
     function insert_voluntarios($data)
     {
         extract($data);
