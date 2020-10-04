@@ -226,7 +226,7 @@ class db_evento extends conexion
     function delete_galeria($data)
     {
         extract($data);
-        $this->execute("delete from galeria_eventos where id_galeria='$foto'");
+        $this->execute("delete from galeria_evento where id_galeria='$foto'");
         unlink($direccion);
     }
     function cargar_foto($destino)
