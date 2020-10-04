@@ -65,6 +65,10 @@ class db_evento extends conexion
     {
         return $this->get_data("call get_eventos_diario('$fecha')");
     }
+    function get_eventos_periodos($inicio,$final)
+    {
+        return $this->get_data("call get_eventos_periodo('$inicio','$final')");
+    }
 
     function get_eventos_anual($fecha)
     {

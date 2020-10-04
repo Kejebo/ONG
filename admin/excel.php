@@ -5,12 +5,14 @@ require_once('db/db_evento.php');
 require_once('db/db_reunion.php');
 require_once('db/db_patrocinador.php');
 require_once('db/db_joven.php');
+require_once('db/db_seguimientos.php');
 require_once('db/db_usuario.php');
 $aliado = new db_patrocinio();
 $eventos = new db_evento();
 $reunion = new db_reunion();
 $jovenes = new db_joven();
 $usuarios = new db_usuario();
+$seguimiento= new db_seguimiento();
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -68,19 +70,49 @@ switch ($_GET['action']) {
     case 'eventos':
         get_evento($eventos, $tableHead, $drawing);
         break;
+    case 'eventos_diarios':
+        get_evento_diario($eventos, $tableHead, $drawing);
+        break;
+    case 'eventos_mensual':
+        get_evento_mensual($eventos, $tableHead, $drawing);
+        break;
+
+    case 'eventos_anual':
+        get_evento_anual($eventos, $tableHead, $drawing);
+        break;
+
+    case 'eventos_diarios':
+        get_evento_diario($eventos, $tableHead, $drawing);
+        break;
+
+    case 'eventos_periodo':
+        get_evento_periodo($eventos, $tableHead, $drawing);
+        break;
 
     case 'reuniones':
-        get_reunion($reunion, $tableHead,$drawing);
+        get_reunion($reunion, $tableHead, $drawing);
+        break;
+    case 'reunion_diarios':
+        get_reunion_diaria($reunion, $tableHead, $drawing);
+        break;
+    case 'reunion_mensual':
+        get_reunion_mensual($reunion, $tableHead, $drawing);
+        break;
+    case 'reunion_anual':
+        get_reunion_anual($reunion, $tableHead, $drawing);
+        break;
+    case 'reunion_periodo':
+        get_reunion_periodo($reunion, $tableHead, $drawing);
         break;
 
     case 'aliados':
-        aliados($aliado, $tableHead,$drawing);
+        aliados($aliado, $tableHead, $drawing);
         break;
     case 'jovenes':
         get_jovenes($jovenes, $tableHead, $drawing);
         break;
     case 'usuarios':
-        usuarios($usuarios, $tableHead,$drawing);
+        usuarios($usuarios, $tableHead, $drawing);
         break;
 }
 function get_evento($eventos, $tableHead, $drawing)
@@ -163,12 +195,324 @@ function get_evento($eventos, $tableHead, $drawing)
     $writer->save('php://output');
 }
 
-function get_reunion($reunion, $tableHead, $drawing)
+function get_evento_diario($eventos, $tableHead, $drawing)
 {
 
 
 
 
+    $spreadsheet = new Spreadsheet();
+    $spreadsheet->getDefaultStyle()
+        ->getFont()
+        ->setName('Arial')
+        ->setSize(10);
+    $sheet = $spreadsheet->getActiveSheet();
+    $drawing->setWorksheet($sheet);
+    $sheet = $spreadsheet->getActiveSheet();
+    $spreadsheet->getActiveSheet()
+        ->setCellValue('C1', "Lista de Eventos");
+
+    //merge heading
+    $spreadsheet->getActiveSheet()->mergeCells("C1:I3");
+
+    // set font style
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getFont()->setSize(20);
+
+    // set cell alignment
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+    $sheet->setCellValue('C4', 'Fecha');
+    $sheet->setCellValue('D4', 'Hora Inicio');
+    $sheet->setCellValue('E4', 'Hora Final');
+    $sheet->setCellValue('F4', 'Nombre');
+    $sheet->setCellValue('G4', 'Responsable');
+    $sheet->setCellValue('H4', 'Lugar');
+    $sheet->setCellValue('I4', 'Incriptos');
+
+    $spreadsheet->getActiveSheet()->getStyle('C4:I4')->applyFromArray($tableHead);
+
+    $auxone = 5;
+    $auxtwo = 5;
+    $auxthree = 5;
+    $auxfour = 5;
+    $auxfive = 5;
+    $auxsix = 5;
+    $auxseven = 5;
+
+
+    foreach ($eventos->get_eventos_diario($_GET['fecha']) as $lista) {
+        $sheet->setCellValue('C' . $auxone, $lista['fecha']);
+        $sheet->getColumnDimension('C')->setAutoSize(true);
+        $sheet->setCellValue('D' . $auxtwo, $lista['inicio']);
+        $sheet->getColumnDimension('D')->setAutoSize(true);
+        $sheet->setCellValue('E' . $auxthree, $lista['cierre']);
+        $sheet->getColumnDimension('E')->setAutoSize(true);
+        $sheet->setCellValue('F' . $auxfour, $lista['nombre_evento']);
+        $sheet->getColumnDimension('F')->setAutoSize(true);
+        $sheet->setCellValue('G' . $auxfive, $lista['mentor']);
+        $sheet->getColumnDimension('G')->setAutoSize(true);
+        $sheet->setCellValue('H' . $auxsix, $lista['lugar']);
+        $sheet->getColumnDimension('H')->setAutoSize(true);
+        $sheet->setCellValue('I' . $auxseven, $lista['inscriptos']);
+        $sheet->getColumnDimension('I')->setAutoSize(true);
+        $auxone++;
+        $auxtwo++;
+        $auxthree++;
+        $auxfour++;
+        $auxfive++;
+        $auxsix++;
+        $auxseven++;
+    }
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="Evento.xlsx"');
+    header('Cache-Control: max-age=0');
+    $firstRow = 4;
+    $lastRow = $auxfive - 1;
+    //set the autofilter
+    $spreadsheet->getActiveSheet()->setAutoFilter("C" . $firstRow . ":H" . $lastRow);
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+    $writer->save('php://output');
+}
+
+function get_evento_mensual($eventos, $tableHead, $drawing)
+{
+
+
+
+
+    $spreadsheet = new Spreadsheet();
+    $spreadsheet->getDefaultStyle()
+        ->getFont()
+        ->setName('Arial')
+        ->setSize(10);
+    $sheet = $spreadsheet->getActiveSheet();
+    $drawing->setWorksheet($sheet);
+    $sheet = $spreadsheet->getActiveSheet();
+    $spreadsheet->getActiveSheet()
+        ->setCellValue('C1', "Lista de Eventos");
+
+    //merge heading
+    $spreadsheet->getActiveSheet()->mergeCells("C1:I3");
+
+    // set font style
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getFont()->setSize(20);
+
+    // set cell alignment
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+    $sheet->setCellValue('C4', 'Fecha');
+    $sheet->setCellValue('D4', 'Hora Inicio');
+    $sheet->setCellValue('E4', 'Hora Final');
+    $sheet->setCellValue('F4', 'Nombre');
+    $sheet->setCellValue('G4', 'Responsable');
+    $sheet->setCellValue('H4', 'Lugar');
+    $sheet->setCellValue('I4', 'Incriptos');
+
+    $spreadsheet->getActiveSheet()->getStyle('C4:I4')->applyFromArray($tableHead);
+
+    $auxone = 5;
+    $auxtwo = 5;
+    $auxthree = 5;
+    $auxfour = 5;
+    $auxfive = 5;
+    $auxsix = 5;
+    $auxseven = 5;
+
+
+    foreach ($eventos->get_eventos_mensual($_GET['fecha']) as $lista) {
+        $sheet->setCellValue('C' . $auxone, $lista['fecha']);
+        $sheet->getColumnDimension('C')->setAutoSize(true);
+        $sheet->setCellValue('D' . $auxtwo, $lista['inicio']);
+        $sheet->getColumnDimension('D')->setAutoSize(true);
+        $sheet->setCellValue('E' . $auxthree, $lista['cierre']);
+        $sheet->getColumnDimension('E')->setAutoSize(true);
+        $sheet->setCellValue('F' . $auxfour, $lista['nombre_evento']);
+        $sheet->getColumnDimension('F')->setAutoSize(true);
+        $sheet->setCellValue('G' . $auxfive, $lista['mentor']);
+        $sheet->getColumnDimension('G')->setAutoSize(true);
+        $sheet->setCellValue('H' . $auxsix, $lista['lugar']);
+        $sheet->getColumnDimension('H')->setAutoSize(true);
+        $sheet->setCellValue('I' . $auxseven, $lista['inscriptos']);
+        $sheet->getColumnDimension('I')->setAutoSize(true);
+        $auxone++;
+        $auxtwo++;
+        $auxthree++;
+        $auxfour++;
+        $auxfive++;
+        $auxsix++;
+        $auxseven++;
+    }
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="Evento.xlsx"');
+    header('Cache-Control: max-age=0');
+    $firstRow = 4;
+    $lastRow = $auxfive - 1;
+    //set the autofilter
+    $spreadsheet->getActiveSheet()->setAutoFilter("C" . $firstRow . ":H" . $lastRow);
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+    $writer->save('php://output');
+}
+function get_evento_anual($eventos, $tableHead, $drawing)
+{
+
+
+
+
+    $spreadsheet = new Spreadsheet();
+    $spreadsheet->getDefaultStyle()
+        ->getFont()
+        ->setName('Arial')
+        ->setSize(10);
+    $sheet = $spreadsheet->getActiveSheet();
+    $drawing->setWorksheet($sheet);
+    $sheet = $spreadsheet->getActiveSheet();
+    $spreadsheet->getActiveSheet()
+        ->setCellValue('C1', "Lista de Eventos");
+
+    //merge heading
+    $spreadsheet->getActiveSheet()->mergeCells("C1:I3");
+
+    // set font style
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getFont()->setSize(20);
+
+    // set cell alignment
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+    $sheet->setCellValue('C4', 'Fecha');
+    $sheet->setCellValue('D4', 'Hora Inicio');
+    $sheet->setCellValue('E4', 'Hora Final');
+    $sheet->setCellValue('F4', 'Nombre');
+    $sheet->setCellValue('G4', 'Responsable');
+    $sheet->setCellValue('H4', 'Lugar');
+    $sheet->setCellValue('I4', 'Incriptos');
+
+    $spreadsheet->getActiveSheet()->getStyle('C4:I4')->applyFromArray($tableHead);
+
+    $auxone = 5;
+    $auxtwo = 5;
+    $auxthree = 5;
+    $auxfour = 5;
+    $auxfive = 5;
+    $auxsix = 5;
+    $auxseven = 5;
+
+
+    foreach ($eventos->get_eventos_anual($_GET['fecha']) as $lista) {
+        $sheet->setCellValue('C' . $auxone, $lista['fecha']);
+        $sheet->getColumnDimension('C')->setAutoSize(true);
+        $sheet->setCellValue('D' . $auxtwo, $lista['inicio']);
+        $sheet->getColumnDimension('D')->setAutoSize(true);
+        $sheet->setCellValue('E' . $auxthree, $lista['cierre']);
+        $sheet->getColumnDimension('E')->setAutoSize(true);
+        $sheet->setCellValue('F' . $auxfour, $lista['nombre_evento']);
+        $sheet->getColumnDimension('F')->setAutoSize(true);
+        $sheet->setCellValue('G' . $auxfive, $lista['mentor']);
+        $sheet->getColumnDimension('G')->setAutoSize(true);
+        $sheet->setCellValue('H' . $auxsix, $lista['lugar']);
+        $sheet->getColumnDimension('H')->setAutoSize(true);
+        $sheet->setCellValue('I' . $auxseven, $lista['inscriptos']);
+        $sheet->getColumnDimension('I')->setAutoSize(true);
+        $auxone++;
+        $auxtwo++;
+        $auxthree++;
+        $auxfour++;
+        $auxfive++;
+        $auxsix++;
+        $auxseven++;
+    }
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="Evento.xlsx"');
+    header('Cache-Control: max-age=0');
+    $firstRow = 4;
+    $lastRow = $auxfive - 1;
+    //set the autofilter
+    $spreadsheet->getActiveSheet()->setAutoFilter("C" . $firstRow . ":H" . $lastRow);
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+    $writer->save('php://output');
+}
+
+function get_evento_periodo($eventos, $tableHead, $drawing)
+{
+    $spreadsheet = new Spreadsheet();
+    $spreadsheet->getDefaultStyle()
+        ->getFont()
+        ->setName('Arial')
+        ->setSize(10);
+    $sheet = $spreadsheet->getActiveSheet();
+    $drawing->setWorksheet($sheet);
+    $sheet = $spreadsheet->getActiveSheet();
+    $spreadsheet->getActiveSheet()
+        ->setCellValue('C1', "Lista de Eventos");
+
+    //merge heading
+    $spreadsheet->getActiveSheet()->mergeCells("C1:I3");
+
+    // set font style
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getFont()->setSize(20);
+
+    // set cell alignment
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+    $sheet->setCellValue('C4', 'Fecha');
+    $sheet->setCellValue('D4', 'Hora Inicio');
+    $sheet->setCellValue('E4', 'Hora Final');
+    $sheet->setCellValue('F4', 'Nombre');
+    $sheet->setCellValue('G4', 'Responsable');
+    $sheet->setCellValue('H4', 'Lugar');
+    $sheet->setCellValue('I4', 'Incriptos');
+
+    $spreadsheet->getActiveSheet()->getStyle('C4:I4')->applyFromArray($tableHead);
+
+    $auxone = 5;
+    $auxtwo = 5;
+    $auxthree = 5;
+    $auxfour = 5;
+    $auxfive = 5;
+    $auxsix = 5;
+    $auxseven = 5;
+
+
+    foreach ($eventos->get_eventos_periodos($_GET['inicio'], $_GET['final']) as $lista) {
+        $sheet->setCellValue('C' . $auxone, $lista['fecha']);
+        $sheet->getColumnDimension('C')->setAutoSize(true);
+        $sheet->setCellValue('D' . $auxtwo, $lista['inicio']);
+        $sheet->getColumnDimension('D')->setAutoSize(true);
+        $sheet->setCellValue('E' . $auxthree, $lista['cierre']);
+        $sheet->getColumnDimension('E')->setAutoSize(true);
+        $sheet->setCellValue('F' . $auxfour, $lista['nombre_evento']);
+        $sheet->getColumnDimension('F')->setAutoSize(true);
+        $sheet->setCellValue('G' . $auxfive, $lista['mentor']);
+        $sheet->getColumnDimension('G')->setAutoSize(true);
+        $sheet->setCellValue('H' . $auxsix, $lista['lugar']);
+        $sheet->getColumnDimension('H')->setAutoSize(true);
+        $sheet->setCellValue('I' . $auxseven, $lista['inscriptos']);
+        $sheet->getColumnDimension('I')->setAutoSize(true);
+        $auxone++;
+        $auxtwo++;
+        $auxthree++;
+        $auxfour++;
+        $auxfive++;
+        $auxsix++;
+        $auxseven++;
+    }
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="Evento.xlsx"');
+    header('Cache-Control: max-age=0');
+    $firstRow = 4;
+    $lastRow = $auxfive - 1;
+    //set the autofilter
+    $spreadsheet->getActiveSheet()->setAutoFilter("C" . $firstRow . ":H" . $lastRow);
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+    $writer->save('php://output');
+}
+
+
+function get_reunion($reunion, $tableHead, $drawing)
+{
     $spreadsheet = new Spreadsheet();
     $spreadsheet->getDefaultStyle()
         ->getFont()
@@ -219,12 +563,242 @@ function get_reunion($reunion, $tableHead, $drawing)
         $auxfour++;
     }
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="Reunion.xlsx"');
+    header('Cache-Control: max-age=0');
+
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+    $writer->save('php://output');
+}
+function get_reunion_diaria($reunion, $tableHead, $drawing)
+{
+    $spreadsheet = new Spreadsheet();
+    $spreadsheet->getDefaultStyle()
+        ->getFont()
+        ->setName('Arial')
+        ->setSize(10);
+    $sheet = $spreadsheet->getActiveSheet();
+    $drawing->setWorksheet($sheet);
+    $sheet = $spreadsheet->getActiveSheet();
+    $spreadsheet->getActiveSheet()
+        ->setCellValue('C1', "Listado de Reuniones del "+$_GET['fecha']);
+
+    //merge heading
+    $spreadsheet->getActiveSheet()->mergeCells("C1:F2");
+
+    // set font style
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getFont()->setSize(20);
+
+    // set cell alignment
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+    $sheet->setCellValue('C3', 'Fecha');
+    $sheet->setCellValue('D3', '# Reunion');
+    $sheet->setCellValue('E3', 'Elaborado');
+    $sheet->setCellValue('F3', 'Asunto');
+
+    $spreadsheet->getActiveSheet()->getStyle('C3:F3')->applyFromArray($tableHead);
+
+    $auxone = 4;
+    $auxtwo = 4;
+    $auxthree = 4;
+    $auxfour = 4;
+
+    foreach ($reunion->get_reunion_diaria($_GET['fecha']) as $lista) {
+        $sheet->setCellValue('C' . $auxone, $lista['fecha']);
+        $sheet->getColumnDimension('C')->setAutoSize(true);
+        $sheet->setCellValue('D' . $auxtwo, $lista['numero']);
+        $sheet->getColumnDimension('D')->setAutoSize(true);
+        $sheet->setCellValue('E' . $auxthree, $lista['nombre'] . ' ' . $lista['primer_apellido'] . ' ' . $lista['segundo_apellido']);
+        $sheet->getColumnDimension('E')->setAutoSize(true);
+        $sheet->setCellValue('F' . $auxfour, $lista['objectivo']);
+        $sheet->getColumnDimension('F')->setAutoSize(true);
+        $auxone++;
+        $auxtwo++;
+        $auxthree++;
+        $auxfour++;
+    }
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     header('Content-Disposition: attachment;filename="Evento.xlsx"');
     header('Cache-Control: max-age=0');
 
     $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
     $writer->save('php://output');
 }
+
+function get_reunion_mensual($reunion, $tableHead, $drawing)
+{
+    $spreadsheet = new Spreadsheet();
+    $spreadsheet->getDefaultStyle()
+        ->getFont()
+        ->setName('Arial')
+        ->setSize(10);
+    $sheet = $spreadsheet->getActiveSheet();
+    $drawing->setWorksheet($sheet);
+    $sheet = $spreadsheet->getActiveSheet();
+    $spreadsheet->getActiveSheet()
+        ->setCellValue('C1', "Listado de Reuniones");
+
+    //merge heading
+    $spreadsheet->getActiveSheet()->mergeCells("C1:F2");
+
+    // set font style
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getFont()->setSize(20);
+
+    // set cell alignment
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+    $sheet->setCellValue('C3', 'Fecha');
+    $sheet->setCellValue('D3', '# Reunion');
+    $sheet->setCellValue('E3', 'Elaborado');
+    $sheet->setCellValue('F3', 'Asunto');
+
+    $spreadsheet->getActiveSheet()->getStyle('C3:F3')->applyFromArray($tableHead);
+
+    $auxone = 4;
+    $auxtwo = 4;
+    $auxthree = 4;
+    $auxfour = 4;
+
+
+
+    foreach ($reunion->get_reunion_mensual($_GET['fecha']) as $lista) {
+        $sheet->setCellValue('C' . $auxone, $lista['fecha']);
+        $sheet->getColumnDimension('C')->setAutoSize(true);
+        $sheet->setCellValue('D' . $auxtwo, $lista['numero']);
+        $sheet->getColumnDimension('D')->setAutoSize(true);
+        $sheet->setCellValue('E' . $auxthree, $lista['nombre'] . ' ' . $lista['primer_apellido'] . ' ' . $lista['segundo_apellido']);
+        $sheet->getColumnDimension('E')->setAutoSize(true);
+        $sheet->setCellValue('F' . $auxfour, $lista['objectivo']);
+        $sheet->getColumnDimension('F')->setAutoSize(true);
+        $auxone++;
+        $auxtwo++;
+        $auxthree++;
+        $auxfour++;
+    }
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="Reunion.xlsx"');
+    header('Cache-Control: max-age=0');
+
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+    $writer->save('php://output');
+}
+
+function get_reunion_anual($reunion, $tableHead, $drawing)
+{
+    $spreadsheet = new Spreadsheet();
+    $spreadsheet->getDefaultStyle()
+        ->getFont()
+        ->setName('Arial')
+        ->setSize(10);
+    $sheet = $spreadsheet->getActiveSheet();
+    $drawing->setWorksheet($sheet);
+    $sheet = $spreadsheet->getActiveSheet();
+    $spreadsheet->getActiveSheet()
+        ->setCellValue('C1', "Listado de Reuniones del año "+$_GET['fecha']);
+
+    //merge heading
+    $spreadsheet->getActiveSheet()->mergeCells("C1:F2");
+
+    // set font style
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getFont()->setSize(20);
+
+    // set cell alignment
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+    $sheet->setCellValue('C3', 'Fecha');
+    $sheet->setCellValue('D3', '# Reunion');
+    $sheet->setCellValue('E3', 'Elaborado');
+    $sheet->setCellValue('F3', 'Asunto');
+
+    $spreadsheet->getActiveSheet()->getStyle('C3:F3')->applyFromArray($tableHead);
+
+    $auxone = 4;
+    $auxtwo = 4;
+    $auxthree = 4;
+    $auxfour = 4;
+
+    foreach ($reunion->get_reunion_anual($_GET['fecha']) as $lista) {
+        $sheet->setCellValue('C' . $auxone, $lista['fecha']);
+        $sheet->getColumnDimension('C')->setAutoSize(true);
+        $sheet->setCellValue('D' . $auxtwo, $lista['numero']);
+        $sheet->getColumnDimension('D')->setAutoSize(true);
+        $sheet->setCellValue('E' . $auxthree, $lista['nombre'] . ' ' . $lista['primer_apellido'] . ' ' . $lista['segundo_apellido']);
+        $sheet->getColumnDimension('E')->setAutoSize(true);
+        $sheet->setCellValue('F' . $auxfour, $lista['objectivo']);
+        $sheet->getColumnDimension('F')->setAutoSize(true);
+        $auxone++;
+        $auxtwo++;
+        $auxthree++;
+        $auxfour++;
+    }
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="Reunion.xlsx"');
+    header('Cache-Control: max-age=0');
+
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+    $writer->save('php://output');
+}
+
+function get_reunion_periodo($reunion, $tableHead, $drawing)
+{
+    $spreadsheet = new Spreadsheet();
+    $spreadsheet->getDefaultStyle()
+        ->getFont()
+        ->setName('Arial')
+        ->setSize(10);
+    $sheet = $spreadsheet->getActiveSheet();
+    $drawing->setWorksheet($sheet);
+    $sheet = $spreadsheet->getActiveSheet();
+    $spreadsheet->getActiveSheet()
+        ->setCellValue('C1', "Listado de Reuniones del día "+$_GET['inicio']+" al "+$_GET['final']);
+
+    //merge heading
+    $spreadsheet->getActiveSheet()->mergeCells("C1:F3");
+
+    // set font style
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getFont()->setSize(20);
+
+    // set cell alignment
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+    $spreadsheet->getActiveSheet()->getStyle('C1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+    $sheet->setCellValue('C3', 'Fecha');
+    $sheet->setCellValue('D3', '# Reunion');
+    $sheet->setCellValue('E3', 'Elaborado');
+    $sheet->setCellValue('F3', 'Asunto');
+
+    $spreadsheet->getActiveSheet()->getStyle('C3:F3')->applyFromArray($tableHead);
+
+    $auxone = 4;
+    $auxtwo = 4;
+    $auxthree = 4;
+    $auxfour = 4;
+
+    foreach ($reunion->get_reunion_periodo($_GET['inicio'], $_GET['final']) as $lista) {
+        $sheet->setCellValue('C' . $auxone, $lista['fecha']);
+        $sheet->getColumnDimension('C')->setAutoSize(true);
+        $sheet->setCellValue('D' . $auxtwo, $lista['numero']);
+        $sheet->getColumnDimension('D')->setAutoSize(true);
+        $sheet->setCellValue('E' . $auxthree, $lista['nombre'] . ' ' . $lista['primer_apellido'] . ' ' . $lista['segundo_apellido']);
+        $sheet->getColumnDimension('E')->setAutoSize(true);
+        $sheet->setCellValue('F' . $auxfour, $lista['objectivo']);
+        $sheet->getColumnDimension('F')->setAutoSize(true);
+        $auxone++;
+        $auxtwo++;
+        $auxthree++;
+        $auxfour++;
+    }
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="Reunion.xlsx"');
+    header('Cache-Control: max-age=0');
+
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+    $writer->save('php://output');
+}
+
 
 function aliados($aliado, $tableHead, $drawing)
 {
@@ -381,7 +955,7 @@ function usuarios($usuarios, $tableHead, $drawing)
 }
 
 
-function get_jovenes($jovenes, $tableHead,$drawing)
+function get_jovenes($jovenes, $tableHead, $drawing)
 {
 
     $spreadsheet = new Spreadsheet();

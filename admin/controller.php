@@ -3,10 +3,12 @@ require_once('db/db_reunion.php');
 require_once('db/db_evento.php');
 require_once('ln/ln_security.php');
 require_once('db/db_reunion.php');
+require_once('db/db_seguimientos.php');
 $db = new db_reunion();
 $evento = new db_evento();
 $security= new ln_security();
 $reunion= new db_reunion();
+$seguimiento= new db_seguimiento();
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
@@ -69,6 +71,10 @@ if (isset($_GET['action'])) {
             echo json_encode($evento->get_eventos_diario($_POST['fecha']));
         break;
 
+        case 'evento_periodo':
+            echo json_encode($evento->get_eventos_periodos($_POST['inicio'],$_POST['final']));
+        break;
+
         case 'evento_mensual':
             echo json_encode($evento->get_eventos_mensual($_POST['fecha']));
         break;
@@ -78,5 +84,29 @@ if (isset($_GET['action'])) {
         case 'reunion_diario':
             echo json_encode($reunion->get_reunion_diario($_POST['fecha']));
         break;
+        case 'reunion_mensual':
+            echo json_encode($reunion->get_reunion_mensual($_POST['fecha']));
+        break;
+        case 'reunion_anual':
+            echo json_encode($reunion->get_reunion_anual($_POST['fecha']));
+        break;
+
+        case 'reunion_periodo':
+            echo json_encode($reunion->get_reunion_periodo($_POST['inicio'],$_POST['final']));
+        break;
+        case 'seguimiento_diario':
+            echo json_encode($seguimiento->get_seguimiento_diario($_POST['fecha']));
+        break;
+        case 'seguimiento_mensual':
+            echo json_encode($seguimiento->get_seguimiento_mensual($_POST['fecha']));
+        break;
+        case 'seguimiento_anual':
+            echo json_encode($seguimiento->get_seguimiento_anual($_POST['fecha']));
+        break;
+
+        case 'seguimiento_periodo':
+            echo json_encode($seguimiento->get_seguimiento_periodo($_POST['inicio'],$_POST['final']));
+        break;
+
     }
 }

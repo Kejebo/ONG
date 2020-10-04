@@ -1,6 +1,5 @@
 <?php
 require_once('db/db_usuario.php');
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -149,7 +148,9 @@ class ln_security
 
     function enviar_correo($codigo)
     {
-        //    $datos = $this->ln_admin->get_admin();
+        require_once('db/db_admin.php');
+        $db_admin= new db_admin();
+        $datos = $db_admin->get_admin()[0];
         $respuesta = false;
         $mail = new PHPMailer(true);
 
@@ -159,16 +160,16 @@ class ln_security
             $mail->Host       = 'smtp.zoho.com';  // Specify main and backup SMTP servers
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
             $mail->Username   = 'admin@dale1manocr.org';                     // SMTP username
-            $mail->Password   = 'Juntos1234';                               // SMTP password
+            $mail->Password   = $datos['clave'];                               // SMTP password
             $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
             $mail->Port       = 587;                                    // TCP port to connect to
 
             $mail->setFrom('admin@dale1manocr.org', 'Dale Una Mano a Costa Rica');
-            $mail->addAddress('kenjen041@gmail.com');     // Add a recipient
+            $mail->addAddress($this->db->get_email($_POST['cedula'])['email']);     // Add a recipient
 
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'ONG Dale una mano Costa Rica[CODIGO DE SEGURIDAD]';
-            $mail->Body    = 'Cambiar contraseña : <a href=http://localhost/ONG/admin/changes_password.php?user='.$_POST['cedula'].'>Dar click</a> ha solicitada una recuperacion de contraseña ' . 'copie el siguiente codigo de seguridad: ' . $codigo[0] . $codigo[1] . $codigo[2];
+            $mail->Body    = 'Cambiar clave de ingreso : has solicitado una recuperacion de la clave de usuario ' . 'copie el siguiente codigo de seguridad: ' . $codigo[0] . $codigo[1] . $codigo[2].' '.'<a href=http://localhost/ONG/admin/changes_password.php?user='.$_POST['cedula'].'>Dar click</a>';
 
             $mail->send();
             $respuesta = true;

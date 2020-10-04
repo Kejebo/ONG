@@ -14,6 +14,9 @@ class db_usuario extends conexion
         return $destino;
     }
 
+    function get_email($cedula){
+        return $this->get_data("select correo as email from usuarios where cedula='$cedula'")[0];
+    }
     function insert_usuario($data)
     {
         extract($data);

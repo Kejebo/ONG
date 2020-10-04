@@ -14,7 +14,7 @@ $ui->get_header();
     <div class="col-8 col-sm-8 col-md-4 col-lg-4">
       <div class="card shadow">
         <div class="card-header">
-          <img src="" alt=""> Iniciar Seccion
+           Iniciar Seccion
         </div>
         <div class="card-body cuadro">
           <form method="post" id="form_login" action="security.php?action=login" onkeyup="escritura()">

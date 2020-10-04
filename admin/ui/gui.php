@@ -291,6 +291,9 @@ class gui extends ln_security
             <script src="assets/dist/js/custom.min.js"></script>
             <script src="assets/extra-libs/DataTables/datatables.min.js"></script>
             <script src="assets/js/main.js"></script>
+            <script src="assets/js/reports.js"></script>
+
+
             <script>
                 $('#zero_config').DataTable({
                     language: {

@@ -57,6 +57,22 @@ class db_seguimiento extends conexion
         return $this->get_data("call get_seguimiento('$id')");
 
     }
+    function get_seguimiento_diario($fecha){
+        return $this->get_data("call get_seguimiento_diario('$fecha')");
+
+    }
+    function get_seguimiento_mensual($fecha){
+        return $this->get_data("call get_seguimiento_mensual('$fecha')");
+
+    }
+    function get_seguimiento_anual($fecha){
+        return $this->get_data("call get_seguimiento_anual('$fecha')");
+    }
+    function get_seguimiento_periodo($inicio,$final){
+        return $this->get_data("call get_seguimiento_periodo('$inicio','$final')");
+
+    }
+
     function get_evento($id)
     {
         return $this->get_data("call get_evento('$id')");

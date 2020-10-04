@@ -91,6 +91,12 @@ class db_joven extends conexion
     {
         return $this->get_data("select *, if(n.jefe=1, 'Si','No') as lider from nucleo_familiar n where n.id_joven  ='$id'");
     }
+    function get_horas($id){
+        return $this->get_data("select SUM(COALESCE((select TIMESTAMPDIFF(HOUR,e.hora_inicio, e.hora_cierre)),0)) as horas from evento_jovenes ej 
+        INNER JOIN eventos e on e.id_evento=ej.id_evento 
+        INNER JOIN jovenes j on j.id_joven=ej.id_joven
+        where ej.id_joven='$id'");
+    }
     function get_familiar($id)
     {
         return $this->get_data("select *, if(n.jefe=1, 'Si','No') as lider from nucleo_familiar n where n.id_familiar  ='$id'");

@@ -50,10 +50,8 @@ class ui_usuarios extends gui
                                         <td><?= $lista['fecha_nacimiento'] ?></td>
                                         <td><?= $lista['status'] ?></td>
                                         <td><a href="usuario.php?action=update_usuario&id=<?= $lista['id_usuario'] ?>" class="btn btn-warning"><i class="far fa-edit"></i></a></td>
-                                        <td><a href="index.php?action=delete&id=<?= $lista['id_usuario'] ?>" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
-                                        <td><a href="expedientes.php?action=exportar=<?= $lista['id_usuario'] ?>" class="btn btn-info">
-                                                <>
-                                            </a></td>
+                                        <td><a href="usuarios.php?action=delete&id=<?= $lista['id_usuario'] ?>" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
+                                        <td><a href="pdfs.php?action=usuario&id=<?= $lista['id_usuario'] ?>" class="btn btn-info"><i class="fas fa-file-pdf"></i></a></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>

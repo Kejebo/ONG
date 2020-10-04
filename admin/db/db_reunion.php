@@ -61,6 +61,18 @@ class db_reunion extends conexion
     {
         return $this->get_data("call get_reunion_diario('$fecha');");
     }
+    function get_reunion_mensual($fecha)
+    {
+        return $this->get_data("call get_reunion_mensual('$fecha');");
+    }
+    function get_reunion_anual($fecha)
+    {
+        return $this->get_data("call get_reunion_anual('$fecha');");
+    }
+    function get_reunion_periodo($inicio,$final)
+    {
+        return $this->get_data("call get_reunion_periodo('$inicio','$final');");
+    }
 
     function get_agendas($id)
     {

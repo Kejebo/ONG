@@ -79,16 +79,4 @@ class ln_evento
             }
         }
     }
-    function reports_dia(){
-        $result=null;
-        $tipo=$_GET['tipo'];
-
-        switch($_GET['busqueda']){
-            case 'evento':
-                if($tipo=='dia'){
-                    $result=$this->db->get_eventos_diario($_GET['fecha_uno']);
-                }        
-        }
-        return $result;
-    }
 }
