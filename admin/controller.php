@@ -2,9 +2,11 @@
 require_once('db/db_reunion.php');
 require_once('db/db_evento.php');
 require_once('ln/ln_security.php');
+require_once('db/db_reunion.php');
 $db = new db_reunion();
 $evento = new db_evento();
 $security= new ln_security();
+$reunion= new db_reunion();
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
@@ -61,5 +63,20 @@ if (isset($_GET['action'])) {
 
         case 'changes':
             $security->validar_cedula($_POST['cedula']);
+        break;
+
+        case 'evento_diario':
+            echo json_encode($evento->get_eventos_diario($_POST['fecha']));
+        break;
+
+        case 'evento_mensual':
+            echo json_encode($evento->get_eventos_mensual($_POST['fecha']));
+        break;
+        case 'evento_anual':
+            echo json_encode($evento->get_eventos_anual($_POST['fecha']));
+        break;
+        case 'reunion_diario':
+            echo json_encode($reunion->get_reunion_diario($_POST['fecha']));
+        break;
     }
 }

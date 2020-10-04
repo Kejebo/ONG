@@ -57,6 +57,11 @@ class db_reunion extends conexion
         return $this->get_data("call get_reunion('$id');")[0];
     }
 
+    function get_reunion_diario($fecha)
+    {
+        return $this->get_data("call get_reunion_diario('$fecha');");
+    }
+
     function get_agendas($id)
     {
         return $this->get_data("select * from agendas where id_reunion='$id'");

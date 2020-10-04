@@ -150,9 +150,9 @@ function get_joven($db)
                 <td class="titulos" style="width: 30%;">Genero</td>
                 <td class="datos" style="width: 70%;"><?= $ui['genero'] ?></td>
             </tr>
-
         </tbody>
     </table>
+
 
 <?php
 }
