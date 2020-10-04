@@ -2,6 +2,10 @@ label {
     font-size: 14px;
     font-weight: bold;
 }
+.img-thumbnail{
+    max-width: 200px !important;
+    text-align: center; 
+}
 table{
     vertical-align: middle !important;
 }

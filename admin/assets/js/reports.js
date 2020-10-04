@@ -6,22 +6,13 @@ $("input[name=tipo]").change(function(){ // bind a function to the change event
 function selec_report(sel) {
     var opciones = sel.options[sel.selectedIndex].textContent;
     let cliente = document.querySelector("#cliente");
-    let fecha = document.querySelector("#fecha");
-    let inicio = document.querySelector("#inicio");
-    let final = document.querySelector("#final");
-    let dia = document.querySelector("#dia");
-    dia.setAttribute("type", "date");
-    cliente.style.display = "none";
-    fecha.style.display = "none";
-    inicio.style.display = "none";
-    final.style.display = "none";
-    let consultar = document.querySelector("#consultar");
-    consultar.disabled = false;
+    let fecha_uno = document.querySelector("#fecha_uno");
+    let fecha_dos = document.querySelector("#fecha_dos");
     let pdf = document.querySelector("#pdf");
     document.getElementById("cuerpo").innerHTML = '';
   
     switch (opciones) {
-      case "Inventario":
+      case "diario":
         consultar.disabled = false;
         document.getElementById("excel").hidden = false;
         update_action("Inventory");

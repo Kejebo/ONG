@@ -58,7 +58,7 @@ class ui_jovenes extends gui
                                 <td><?=$lista['status']?></td>
                                 <td><a href="expedientes.php?action=update_joven&id=<?=$lista['id_joven']?>" class="btn btn-warning"><i class="far fa-edit"></i></a></td>
                                 <td><a href="jovenes.php?action=delete&id=<?=$lista['id_joven']?>" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
-                                <td><a href="pdf.php?action=exportar=<?=$lista['id_joven']?>" class="btn btn-dark"><i class="fas fa-file-pdf"></i></a></td>
+                                <td><a href="pdfs.php?action=joven&id=<?=$lista['id_joven']?>" class="btn btn-dark"><i class="fas fa-file-pdf"></i></a></td>
                                 </tr>
                                 <?php }?>
                             </tbody>

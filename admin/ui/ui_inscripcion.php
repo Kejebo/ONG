@@ -60,7 +60,7 @@ class ui_inscripcion extends gui
                                         <tr>
                                             <td><?= $jovenes['cedula'] ?></td>
                                             <td><?= $jovenes['joven'] . ' ' . $jovenes['primer_apellido'] . ' ' . $jovenes['segundo_apellido'] ?></td>
-                                            <td><a href="inscripciones.php?action=delete_voluntario&id=<?= $_GET['id'] ?>&evento=<?= $_GET['id'] ?>&joven=<?= $jovenes['id_joven'] ?>" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
+                                            <td><a href="inscripciones.php?action=delete_voluntario&id=<?= $_GET['id'] ?>&joven=<?= $jovenes['id_joven'] ?>&evento=<?=$jovenes['id']?>" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>

@@ -3,8 +3,10 @@ include('ui/ui_pdfs.php');
 require_once('db/db_seguimientos.php');
 require_once('db/db_evento.php');
 require_once('db/db_admin.php');
+require_once('db/db_joven.php');
 $admin = new db_admin();
 $admin = $admin->get_admin()[0];
+$joven= new db_joven();
 
 $db = new db_seguimiento();
 $evento = new db_evento();
@@ -48,7 +50,6 @@ $evento = new db_evento();
         font-size: 14px;
         color: black;
         text-transform: uppercase;
-    
     }
 
     tbody td {
@@ -87,6 +88,19 @@ $evento = new db_evento();
     border-right: 0px;
     border-bottom: 1px solid black;
     border-left: 0px;    }
+    .joven tbody td{
+        padding: 5px;
+    border-top: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid black;
+    border-left: 0px;  
+    }
+    .datos{
+        margin-left: 20px;
+    }
+    .titulos{
+        font-weight: bold;
+    }
 </style>
 <page backtop="10mm" backbottom="10mm" backleft="20mm" backright="20mm">
     <table id="encabezado"  border="1" cellspacing="0">
@@ -126,17 +140,29 @@ $evento = new db_evento();
         case 'seguimiento':
             get_seguimiento($db);
         break;
+        
+        case 'joven':
+            get_joven($joven);
+        break;
     }
     ?>
 </page>
 <?php
-require_once(__DIR__ . "./vendor/autoload.php");
+
+require_once('../vendor/autoload.php');
+$mpdf = new \Mpdf\Mpdf();
+$mpdf->WriteHTML('<h1>Hello world!</h1>');
+$mpdf->Output();
+
+/*require_once(__DIR__ . "./vendor/autoload.php");
 
 use Spipu\Html2Pdf\Html2Pdf;
 
 $html = ob_get_clean();
 $pdf = new Html2Pdf('P', 'A4', 'es', 'true', 'UTF-8');
+$pdf->setTestTdInOnePage (false);
 $pdf->writeHTML($html);
 
 $pdf->output();
+*/
 ?>

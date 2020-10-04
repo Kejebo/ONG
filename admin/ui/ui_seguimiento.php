@@ -45,7 +45,7 @@ class ui_seguimiento extends gui
                                         </div>
                                         <div class="float-right">
                                             <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#my-modal">Editar</button>
-                                            <a class="btn btn-secondary" href="informes.php?action=export&id=<?= $_GET['id_seguimiento'] ?>">Exportar</a>
+                                            <a class="btn btn-secondary" target="blank" href="pdfs.php?action=seguimiento&id=<?= $_GET['id_seguimiento'] ?>">Exportar</a>
 
                                         </div>
                                     </div>

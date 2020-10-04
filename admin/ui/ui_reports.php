@@ -1,12 +1,12 @@
 <?php
 require_once('gui.php');
-require_once('db/db_admin.php');
+require_once('db/db_evento.php');
 class ui_reports extends gui
 {
     var $db;
     function __construct()
     {
-        $this->db = new db_admin();
+        $this->db = new db_evento();
     }
     function controller()
     {
@@ -36,7 +36,7 @@ class ui_reports extends gui
                                 <span class=""><strong>Tipo Consulta</strong></span>
                                 <div class="text-center container">
                                     <label class="btn btn-primary">
-                                        <input type="radio" checked name="tipo" class="tipo" value="dia"> Dia
+                                        <input type="radio" checked name="tipo" class="tipo" value="diario"> Dia
                                     </label>
                                     <label class="btn btn-primary">
                                         <input type="radio" name="tipo" class="tipo" value="mes"> Mensual
@@ -52,10 +52,10 @@ class ui_reports extends gui
 
                                 <div class="form-group row text-center">
                                     <div class="col-sm-6">
-                                        <input id="fecha_uno" class="form-control" type="date" name="fecha_uno">
+                                        <input id="fecha_uno" class="form-control" type="date" name="fecha_uno" value="<?php echo date("Y-m-d"); ?>">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input id="fecha_dos" class="form-control" type="date" name="fecha_dos">
+                                        <input id="fecha_dos" disabled class="form-control" type="date" name="fecha_dos" value="<?php echo date("Y-m-d"); ?>">
                                     </div>
                                 </div>
 
@@ -75,7 +75,7 @@ class ui_reports extends gui
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary">Consultar</button>
                                     <a href="#" class="btn btn-danger pdf">PDF</a>
-                                    <a href="#"class="btn btn-success excel">Excel</a>
+                                    <a href="#" class="btn btn-success excel">Excel</a>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-12 col-md-12 col-lg-7 p-4">
@@ -89,6 +89,17 @@ class ui_reports extends gui
                                             <th>Exportar</th>
                                         </tr>
                                     </thead>
+                                    <tbody>
+                                        <?php foreach ($this->db->get_eventos_anual($_GET['fecha_uno']) as $evento) { ?>
+                                            <tr>
+                                                <td><?= $evento['fecha'] ?></td>
+                                                <td><?= $evento['inicio'] ?></td>
+                                                <td><?= $evento['nombre_evento'] ?></td>
+                                                <td><?= $evento['lugar'] ?></td>
+                                                <td><?= $evento['mentor'] ?></td>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
 
                                 </table>
 
@@ -102,19 +113,49 @@ class ui_reports extends gui
         </form>
         <script>
             window.addEventListener('load', function() {
-                $$("input[name='tipo']").change(function() { // bind a function to the change event
-
+   
+                $("input[name=tipo]").change(function() { // bind a function to the change event
                     if ($(this).is(":checked")) { // check if the radio is checked
-                        setAtributos($(this).val());
+                        selec_report($(this).val());
                     }
                 });
-                function setAtributos(option){
-                    switch(option){
-                        case 'dia':
-                            $('pdf').attr('href','reports.php?action=dia&fecha'+$('#fecha_uno').val());
 
+
+
+                function selec_report(select) {
+                    let cliente = document.querySelector("#cliente");
+                    let fecha_uno = document.querySelector("#fecha_uno");
+                    let fecha_dos = document.querySelector("#fecha_dos");
+                    let pdf = document.querySelector("#pdf");
+
+                    switch (select) {
+                        case "diario":
+                            
+                            $(fecha_dos).attr('disabled',true);
+                            $(fecha_uno).attr('type','date');
+                            break;
+
+                        case "mes":
+                            $(fecha_dos).attr('disabled',true);
+                            $(fecha_uno).attr('type','month');
+                            break;
+
+                        case "anual":
+                            $(fecha_dos).attr('disabled',true);
+                            $(fecha_uno).attr('type','number');
+                            $(fecha_uno).attr('min',new Date().getFullYear()-70);
+                            $(fecha_uno).attr('value',new Date().getFullYear());
+                            $(fecha_uno).attr('max',new Date().getFullYear()+50);
+
+
+                             break;
+
+                        case "periodo":
+                            $(fecha_dos).attr('disabled',false);
+                            break;
+                        default:
+                            break;
                     }
-                    $('form').attr('href','local');
                 }
             });
         </script>

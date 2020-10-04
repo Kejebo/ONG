@@ -58,7 +58,7 @@ class ui_asistencia extends gui
                                             <tr>
                                                 <td><?= $jovenes['cedula'] ?></td>
                                                 <td><?= $jovenes['nombre'] . ' ' . $jovenes['primer_apellido'] . ' ' . $jovenes['segundo_apellido'] ?></td>
-                                                <td><a href="inscripciones.php?action=delete_voluntario_asistencia&id=<?= $_GET['id'] ?>&evento=<?= $_GET['id'] ?>&joven=<?= $jovenes['id_joven'] ?>" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
+                                                <td><a href="asistencia.php?action=dar_baja&id=<?= $_GET['id'] ?>&joven=<?= $jovenes['id_joven'] ?>" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
 
                                             </tr>
                                         <?php } ?>
@@ -96,7 +96,7 @@ class ui_asistencia extends gui
                                             <tr>
                                                 <td><?= $asistente['cedula'] ?></td>
                                                 <td><?= $asistente['nombre_completo'] ?></td>
-                                                <td><a href="inscripciones.php?action=delete_externo_asistencia" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
+                                                <td><a href="asistencia.php?action=dar_baja&asistente=<?=$asistente['id_asistente']?>&id=<?=$_GET['id']?>" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
 
                                             </tr>
                                         <?php } ?>
@@ -120,7 +120,7 @@ class ui_asistencia extends gui
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="inscripciones.php?action=add_voluntarios&id=<?= $_GET['id'] ?>" method="post">
+                        <form action="asistencia.php?action=add_voluntarios&id=<?= $_GET['id'] ?>" method="post">
 
                             <input type="hidden" name="id" value="<?= $_GET['id'] ?>">
                             <table class="table table-light zero_config">
@@ -138,9 +138,9 @@ class ui_asistencia extends gui
                                         ?>
                                      
                                         <tr>
-                                            <td><input type="checkbox" name="jovenes[]" value="<?= $jovenes['id_joven'] ?>"></td>
+                                            <td><input type="checkbox" name="jovenes[]" value="<?= $jovenes['codigo'] ?>"></td>
                                             <td><?= $jovenes['cedula'] ?></td>
-                                            <td><?= $jovenes['nombre'] . ' ' . $jovenes['primer_apellido'] . ' ' . $jovenes['segundo_apellido'] ?></td>
+                                            <td><?= $jovenes['joven'] . ' ' . $jovenes['primer_apellido'] . ' ' . $jovenes['segundo_apellido'] ?></td>
                                         </tr>
                                     <?php } }?>
 

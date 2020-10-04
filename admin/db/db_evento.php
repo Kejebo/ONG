@@ -63,7 +63,17 @@ class db_evento extends conexion
 
     function get_eventos_diario($fecha)
     {
-        return $this->get_data("call get_evento_diario('$fecha')");
+        return $this->get_data("call get_eventos_diario('$fecha')");
+    }
+
+    function get_eventos_anual($fecha)
+    {
+        return $this->get_data("call get_eventos_anual('$fecha')");
+    }
+
+    function get_eventos_mensual($fecha)
+    {
+        return $this->get_data("call get_evento_mensual('$fecha')");
     }
     function insert_voluntarios($data)
     {
@@ -80,7 +90,7 @@ class db_evento extends conexion
     function delete_voluntario($data)
     {
         extract($data);
-        $this->execute("delete from evento_jovenes where id_evento='$evento' and id_joven='$joven'");
+        $this->execute("delete from evento_jovenes where id='$evento'");
     }
     function get_patrocinadores()
     {
@@ -174,6 +184,17 @@ class db_evento extends conexion
             foreach ($asistente as $lista) {
                 $this->execute("update asistentes set asistio=1 where id_asistente='$lista'");
             }
+        }
+    }
+
+    function dar_baja($data)
+    {
+        extract($data);
+        if (isset($joven)) {
+            $this->execute("update evento_jovenes set asistio=0 where id_joven='$joven' and id_evento='$id'");
+        }
+        if (isset($asistente)) {
+                $this->execute("update asistentes set asistio=0 where id_asistente='$asistente'");
         }
     }
 

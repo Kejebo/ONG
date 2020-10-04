@@ -70,9 +70,25 @@ class ln_evento
                     break;
                 case 'delete_asistente':
                     $this->db->delete_asistente($_GET);
-                    header("Location: inscripciones.php?id=" . $_GET['id']);
+                    header("Location: asistencias.php?id=" . $_GET['id']);
+                    break;
+                case 'dar_baja':
+                    $this->db->dar_baja($_GET);
+                    header("Location: asistencia.php?id=" . $_GET['id']);
                     break;
             }
         }
+    }
+    function reports_dia(){
+        $result=null;
+        $tipo=$_GET['tipo'];
+
+        switch($_GET['busqueda']){
+            case 'evento':
+                if($tipo=='dia'){
+                    $result=$this->db->get_eventos_diario($_GET['fecha_uno']);
+                }        
+        }
+        return $result;
     }
 }

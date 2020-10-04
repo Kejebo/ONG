@@ -361,8 +361,10 @@ class ui_expedientes extends gui
                                         <div class="card shadow">
                                             <div class="card-body">
                                                 <h4>Documentos</h4>
+                                                <div class="text-center">
                                                 <img src="<?= $ui['foto'] ?>" class="img-thumbnail">
-
+                                                </div>
+                                                          <br>
                                                 <label class="control-label col-form-label">Foto de Perfil</label>
                                                 <div class="custom-file">
                                                     <input type="file" class="custom-file-input" name="foto"  >

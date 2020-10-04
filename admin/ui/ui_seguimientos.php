@@ -66,7 +66,7 @@ class ui_seguimientos extends gui
                                                 <td><?= $seguimientos['asunto'] ?></td>
                                                 <td><a href="seguimiento.php?id_seguimiento=<?= $seguimientos['id_seguimiento'] ?>" class="btn btn-warning"><i class="far fa-edit"></i></a></td>
                                                 <td><a href="seguimiento.php?id=<?= $seguimientos['id_seguimiento'] ?>" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
-                                                <td><a href="pdfs.php?action=seguimiento&id=<?= $seguimientos['id_seguimiento'] ?>" class="btn btn-dark"><i class="fas fa-file-pdf"></i></a></td>
+                                                <td><a target="blank" href="pdfs.php?action=seguimiento&id=<?= $seguimientos['id_seguimiento'] ?>" class="btn btn-dark"><i class="fas fa-file-pdf"></i></a></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
